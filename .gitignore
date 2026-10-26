@@ -1,0 +1,62 @@
+# Keep only the four text Skills required by this workflow.
+.pi
+
+# Optional research/archive material not required by the core workflow
+workflow/custom/
+
+# Local comic projects; keep only the workspace directory in the repository
+comic/*
+
+# Runtime logs and temporary data
+temp/*
+!temp/.gitkeep
+*.log
+*.tmp
+*.temp
+
+# Image Server runtime state
+comic/**/.novelai-queue.lock
+comic/**/.novelai-run-state.json
+comic/**/.novelai-pending.json
+
+# Automatic safety backups
+*.bak
+*.bak-*
+*-backup-*.md
+.renumber-backup-*/
+
+# Generated image/output directories
+comic/**/images/
+comic/**/output/
+comic/**/outputs/
+comic/**/generated/
+
+# Local secrets and machine-specific configuration
+.env
+.env.*
+!.env.example
+*.local.json
+*.secret.json
+
+# JavaScript / TypeScript tooling
+node_modules/
+coverage/
+.nyc_output/
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo

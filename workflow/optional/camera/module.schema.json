@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://comic-prompt-workflow.local/schemas/optional/camera/module.schema.json",
+  "title": "Camera Optional Module Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "moduleSpecVersion",
+    "id",
+    "name",
+    "version",
+    "description",
+    "projectSetting",
+    "storyboardFields",
+    "promptIntegration",
+    "entry",
+    "moduleChecker",
+    "projectChecker"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "./module.schema.json"
+    },
+    "moduleSpecVersion": {
+      "const": 1
+    },
+    "id": {
+      "const": "camera"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "projectSetting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default",
+        "options"
+      ],
+      "properties": {
+        "default": {
+          "enum": [
+            "off",
+            "required"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "off",
+              "required"
+            ]
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "off"
+              }
+            },
+            {
+              "contains": {
+                "const": "required"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "storyboardFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tags"
+      ],
+      "properties": {
+        "tags": {
+          "const": "optional.camera.tags"
+        }
+      }
+    },
+    "promptIntegration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceField",
+        "targetSection",
+        "includeFieldName"
+      ],
+      "properties": {
+        "sourceField": {
+          "const": "optional.camera.tags"
+        },
+        "targetSection": {
+          "const": "Main"
+        },
+        "includeFieldName": {
+          "const": false
+        }
+      }
+    },
+    "entry": {
+      "const": "README.md"
+    },
+    "moduleChecker": {
+      "const": "scripts/check-module.ts"
+    },
+    "projectChecker": {
+      "const": "scripts/check-project.ts"
+    }
+  }
+}

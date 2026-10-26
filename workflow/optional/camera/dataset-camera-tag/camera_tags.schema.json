@@ -1,0 +1,328 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NovelAI Comic Camera Tags Knowledge Base Schema",
+  "description": "JSON Schema validating the camera_tags.yaml knowledge base structure.",
+  "type": "object",
+  "required": [
+    "metadata",
+    "controlled_vocabularies",
+    "global_selection_rules",
+    "groups"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "name",
+        "version",
+        "description",
+        "last_updated",
+        "authoritative_source",
+        "total_tags"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "last_updated": {
+          "type": "string"
+        },
+        "authoritative_source": {
+          "type": "string"
+        },
+        "total_tags": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "controlled_vocabularies": {
+      "type": "object",
+      "required": [
+        "scopes",
+        "tiers",
+        "reliabilities",
+        "visual_priorities",
+        "axes"
+      ],
+      "properties": {
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "panel",
+              "page",
+              "both"
+            ]
+          }
+        },
+        "tiers": {
+          "type": "object",
+          "required": [
+            "core",
+            "specialized",
+            "experimental"
+          ],
+          "properties": {
+            "core": {
+              "type": "string"
+            },
+            "specialized": {
+              "type": "string"
+            },
+            "experimental": {
+              "type": "string"
+            }
+          }
+        },
+        "reliabilities": {
+          "type": "object",
+          "required": [
+            "high",
+            "medium",
+            "low"
+          ],
+          "properties": {
+            "high": {
+              "type": "string"
+            },
+            "medium": {
+              "type": "string"
+            },
+            "low": {
+              "type": "string"
+            }
+          }
+        },
+        "visual_priorities": {
+          "type": "object"
+        },
+        "axes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "global_selection_rules": {
+      "type": "object",
+      "required": [
+        "default_panel_budget",
+        "default_page_budget",
+        "selection_pipeline",
+        "mutual_exclusion_axes",
+        "conflict_resolution_principles"
+      ],
+      "properties": {
+        "default_panel_budget": {
+          "type": "object",
+          "required": [
+            "min",
+            "recommended",
+            "max"
+          ],
+          "properties": {
+            "min": {
+              "type": "integer"
+            },
+            "recommended": {
+              "type": "integer"
+            },
+            "max": {
+              "type": "integer"
+            }
+          }
+        },
+        "default_page_budget": {
+          "type": "object",
+          "required": [
+            "min",
+            "recommended",
+            "max"
+          ],
+          "properties": {
+            "min": {
+              "type": "integer"
+            },
+            "recommended": {
+              "type": "integer"
+            },
+            "max": {
+              "type": "integer"
+            }
+          }
+        },
+        "selection_pipeline": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mutual_exclusion_axes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "conflict_resolution_principles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "object",
+      "required": [
+        "shot_size",
+        "camera_angle",
+        "orientation",
+        "viewpoint",
+        "perspective",
+        "framing",
+        "focus",
+        "camera_effect",
+        "comic_layout"
+      ],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "type": "object",
+          "required": [
+            "scope",
+            "max_selected",
+            "description",
+            "tags"
+          ],
+          "properties": {
+            "scope": {
+              "type": "string",
+              "enum": [
+                "panel",
+                "page",
+                "both"
+              ]
+            },
+            "max_selected": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "tag",
+                  "tier",
+                  "reliability",
+                  "visual_priority",
+                  "description",
+                  "use_when",
+                  "avoid_when",
+                  "narrative_effects",
+                  "source_category",
+                  "post_count"
+                ],
+                "properties": {
+                  "tag": {
+                    "type": "string"
+                  },
+                  "tier": {
+                    "type": "string",
+                    "enum": [
+                      "core",
+                      "specialized",
+                      "experimental"
+                    ]
+                  },
+                  "reliability": {
+                    "type": "string",
+                    "enum": [
+                      "high",
+                      "medium",
+                      "low"
+                    ]
+                  },
+                  "visual_priority": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 6
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "use_when": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "avoid_when": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "narrative_effects": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "source_category": {
+                    "type": "string"
+                  },
+                  "post_count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "compatible_with": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "exclusive_with": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "usually_avoid_with": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "requires": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "selection_behavior": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "./module.schema.json",
+  "moduleSpecVersion": 1,
+  "id": "camera",
+  "name": "Camera",
+  "version": "1.0.0",
+  "description": "Optional Camera planning rules, references, data, and validation for comic projects.",
+  "projectSetting": {
+    "default": "off",
+    "options": [
+      "off",
+      "required"
+    ]
+  },
+  "storyboardFields": {
+    "tags": "optional.camera.tags"
+  },
+  "promptIntegration": {
+    "sourceField": "optional.camera.tags",
+    "targetSection": "Main",
+    "includeFieldName": false
+  },
+  "entry": "README.md",
+  "moduleChecker": "scripts/check-module.ts",
+  "projectChecker": "scripts/check-project.ts"
+}

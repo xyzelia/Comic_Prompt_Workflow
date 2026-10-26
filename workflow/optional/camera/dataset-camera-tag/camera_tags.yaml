@@ -1,0 +1,5308 @@
+metadata:
+  name: NovelAI Comic Camera & Framing Knowledge Base
+  version: 1.0.0
+  description: Curated English-only camera angle, shot size, perspective, viewpoint,
+    framing, focus, camera effect, and comic layout tag knowledge base for AI-driven
+    comic generation.
+  last_updated: '2026-10-06'
+  authoritative_source: Curated local structured tag catalog snapshot
+  total_tags: 212
+controlled_vocabularies:
+  scopes:
+    - panel
+    - page
+    - both
+  tiers:
+    core: High-frequency, foundational cinematography and comic tags essential for
+      baseline scene composition.
+    specialized: Specific cinematic, stylistic, or situated staging tags suited for
+      distinct narrative moments.
+    experimental: Niche, low-frequency, or complex multi-tag interactions requiring
+      careful prompt tuning.
+  reliabilities:
+    high: Consistently produces the intended framing and camera perspective across
+      diverse seeds and prompts.
+    medium: Usually effective; may interact with complex poses, background detail,
+      or character density.
+    low: Sensitive to prompt weight, subject complexity, or model biases; best tested
+      iteratively.
+  visual_priorities:
+    '1': Primary framing, shot size, POV, and focal subject target.
+    '2': Camera elevation angle and subject facing orientation.
+    '3': Lens projection, perspective convergence, and depth-of-field blur.
+    '4': Framing crops, spatial arrangements, borders, and insets.
+    '5': Optical lens flares, shutter motion lines, and camera visual effects.
+    '6': Page layout structure, panel configurations, and reading order.
+  axes:
+    - shot_size
+    - camera_angle
+    - orientation
+    - viewpoint
+    - perspective
+    - framing
+    - focus
+    - camera_effect
+    - comic_layout
+global_selection_rules:
+  default_panel_budget:
+    min: 2
+    recommended: 3
+    max: 5
+  default_page_budget:
+    min: 1
+    recommended: 2
+    max: 3
+  selection_pipeline:
+    - '1. Determine Scope: Decide if generating an individual panel brief or a full-page
+      layout.'
+    - '2. Comic Layout (Page only): Select page structure and reading direction.'
+    - '3. Primary Shot Size (Panel): Select exactly one shot size defining subject
+      framing range.'
+    - '4. Camera Angle (Panel): Select at most one vertical elevation (e.g. from above,
+      from below, straight-on).'
+    - '5. Orientation / POV (Panel): Select subject facing direction or subjective
+      POV.'
+    - '6. Perspective & Lens (Panel): Add perspective or distortion cue if dramatic
+      lens dynamic is needed.'
+    - '7. Framing & Composition (Panel): Add deliberate crops, anchors, or spatial
+      arrangements.'
+    - '8. Focus & Depth (Panel): Add specific focal target or depth-of-field blur
+      cue.'
+    - '9. Camera Effects (Panel): Add motion lines, lens flare, or shutter effects
+      if kinetic energy is required.'
+  mutual_exclusion_axes:
+    - shot_size
+    - camera_angle
+    - orientation
+  conflict_resolution_principles:
+    - 'POV Override: When a subjective viewpoint (e.g. ''pov'', ''pov hands'') is
+      selected, it overrides standard third-person subject orientation. Facing subjects
+      should use ''facing viewer''.'
+    - 'One Primary Shot Size: Never combine contradictory shot sizes (e.g. ''full
+      body'' with ''close-up'' or ''upper body'').'
+    - 'One Primary Angle: Never combine contradictory vertical elevations (e.g. ''from
+      above'' with ''from below'' or ''straight-on'').'
+    - 'Strong Effect Limit: Cap strong distortion effects (e.g. ''fisheye'', ''dutch
+      angle'', ''motion blur'', ''distortion'') to a maximum of 1-2 per panel.'
+    - 'Environment vs Character Exclusions: Scenery and landscape shots exclude tight
+      character close-ups unless layered through insets.'
+groups:
+  shot_size:
+    scope: panel
+    max_selected: 1
+    description: Framing distance and scale of the subject relative to the frame boundary.
+    tags:
+      - tag: full body
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Frames the entire character from head to toe within the scene.
+        use_when:
+          - Action scenes requiring full body posture or movement
+          - Showcasing full character outfit or footwear
+          - Establishing character physical scale in an environment
+        avoid_when:
+          - Subtle facial emotional expressions are the main focus
+          - Close intimate conversations in compact panels
+        narrative_effects:
+          - Provides complete spatial awareness of the subject
+          - Emphasizes stance, dynamic movement, and physical action
+        source_category: composition.framing.shot_size
+        post_count: 1105562
+        subject_coverage: head_to_toe
+        field_of_view: medium_wide
+        typical_usage: action_establishing
+        compatible_with:
+          - from above
+          - from below
+          - straight-on
+          - wide shot
+          - isometric
+          - dutch angle
+        exclusive_with:
+          - upper body
+          - cowboy shot
+          - portrait
+          - close-up
+          - headshot
+          - head only
+      - tag: upper body
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Frames character from the waist or mid-torso upwards to the top
+          of the head.
+        use_when:
+          - Standard conversational dialogue scenes
+          - Balancing hand gestures with facial expression clarity
+          - General comic storytelling panels
+        avoid_when:
+          - Full body martial arts or footwork actions
+          - Extreme macro detail on eye or facial features
+        narrative_effects:
+          - Natural storytelling baseline for character interaction
+          - Balances character emotion and bodily gesture
+        source_category: composition.framing.shot_size
+        post_count: 1043118
+        subject_coverage: waist_to_head
+        field_of_view: medium
+        typical_usage: standard_dialogue
+        compatible_with:
+          - facing viewer
+          - from side
+          - three quarter view
+          - depth of field
+          - blurry background
+        exclusive_with:
+          - full body
+          - feet only
+          - lower body
+          - wide shot
+      - tag: cowboy shot
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Frames character from mid-thigh up, capturing hip-level weapons,
+          holsters, or hand placement.
+        use_when:
+          - Duel or showdown standoffs
+          - Displaying belt-mounted weapons, gear, or pockets
+          - Slightly broader framing than upper body without showing feet
+        avoid_when:
+          - Tight emotional close-ups
+          - Extreme wide environmental establishing shots
+        narrative_effects:
+          - Conveys tension, readiness for combat, and assertive presence
+          - Western and action cinematic pacing
+        source_category: composition.framing.shot_size
+        post_count: 738833
+        subject_coverage: mid_thigh_to_head
+        field_of_view: medium_wide
+        typical_usage: standoff_action
+        compatible_with:
+          - from below
+          - straight-on
+          - weapon focus
+          - dutch angle
+        exclusive_with:
+          - close-up
+          - portrait
+          - headshot
+          - full body
+      - tag: portrait
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Frames the head and upper shoulders with high emphasis on facial
+          presence.
+        use_when:
+          - Character introduction or emotional monologue
+          - Key dialogue reveals and dramatic reactions
+          - Focusing on facial expression and styling
+        avoid_when:
+          - Scenes emphasizing physical action or limb movement
+          - Complex multi-character interactions
+        narrative_effects:
+          - Creates emotional intimacy and direct character connection
+          - Highlights internal thoughts and psychological states
+        source_category: composition.framing.shot_size
+        post_count: 118108
+        subject_coverage: chest_to_head
+        field_of_view: medium_close
+        typical_usage: character_focus
+        compatible_with:
+          - depth of field
+          - blurry background
+          - soft focus
+          - lens flare
+        exclusive_with:
+          - full body
+          - cowboy shot
+          - wide shot
+          - scenery
+      - tag: close-up
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Tightly frames the head, face, or a specific key subject detail
+          filling most of the frame.
+        use_when:
+          - Intense emotional shock, realization, or epiphany
+          - Highlighting subtle eye expressions, tears, or smirks
+          - Dramatic reaction panels in comic pacing
+        avoid_when:
+          - Establishing the location or surrounding context
+          - Choreographing multi-character body movements
+        narrative_effects:
+          - Amplifies dramatic intensity and emotional resonance
+          - Forces reader attention directly onto minute nuances
+        source_category: composition.framing.shot_size
+        post_count: 57308
+        subject_coverage: face_or_detail
+        field_of_view: close
+        typical_usage: dramatic_reaction
+        compatible_with:
+          - eye focus
+          - depth of field
+          - motion lines
+          - dutch angle
+        exclusive_with:
+          - full body
+          - cowboy shot
+          - wide shot
+          - scenery
+          - very wide shot
+      - tag: wide shot
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Captures characters within their full environmental context with
+          ample surrounding space.
+        use_when:
+          - Establishing scene location and environmental atmosphere
+          - Showing distance between multiple characters
+          - Battlefield or group formation overviews
+        avoid_when:
+          - Intimate dialogue requiring facial nuance
+          - Fast-paced quick reaction beats
+        narrative_effects:
+          - Establishes spatial orientation, geography, and scale
+          - Conveys isolation, grandeur, or vastness
+        source_category: composition.framing.shot_size
+        post_count: 20837
+        subject_coverage: environment_and_subjects
+        field_of_view: wide
+        typical_usage: establishing_spatial
+        compatible_with:
+          - scenery
+          - landscape
+          - from above
+          - perspective
+          - atmospheric perspective
+        exclusive_with:
+          - close-up
+          - portrait
+          - headshot
+          - upper body
+      - tag: very wide shot
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Extremely distant framing where characters appear tiny against
+          an expansive landscape.
+        use_when:
+          - Epic scale world reveals and chapter establishing panels
+          - Emphasizing overwhelming wilderness or colossal architecture
+          - Conveying loneliness or journey progression across terrain
+        avoid_when:
+          - Any character-driven conversation or combat engagement
+          - Small panels with limited resolution
+        narrative_effects:
+          - Subordinates the character to the immense world
+          - Evokes awe, solitude, or cinematic scope
+        source_category: composition.framing.shot_size
+        post_count: 1964
+        subject_coverage: vast_environment
+        field_of_view: extreme_wide
+        typical_usage: epic_establishing
+        compatible_with:
+          - landscape
+          - scenery
+          - atmospheric perspective
+          - full page comic
+        exclusive_with:
+          - close-up
+          - portrait
+          - cowboy shot
+          - upper body
+          - full body
+      - tag: scenery
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Focuses on environmental background elements and scenery rather
+          than character foreground.
+        use_when:
+          - Scene-setting panels without active character focus
+          - Transitions between locations or time of day
+          - Atmospheric mood pieces
+        avoid_when:
+          - Character-centric emotional beats
+          - Close dialogue exchanges
+        narrative_effects:
+          - Grounds the reader in the world lore and mood
+          - Serves as narrative breathing room between intense sequences
+        source_category: composition.framing.shot_size
+        post_count: 68184
+        subject_coverage: environment_only
+        field_of_view: wide
+        typical_usage: scene_transition
+        compatible_with:
+          - wide shot
+          - landscape
+          - vanishing point
+          - depth of field
+        exclusive_with:
+          - portrait
+          - close-up
+          - headshot
+      - tag: landscape
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Horizontal nature or outdoor vista framing focusing on terrain,
+          sky, and horizon.
+        use_when:
+          - Natural environment establishing panels (mountains, oceans, forests)
+          - Panoramic background vistas in horizontal panels
+        avoid_when:
+          - Indoor tight room dialogues
+          - Close character portraits
+        narrative_effects:
+          - Conveys natural beauty, journey progress, and tranquility
+        source_category: composition.framing.shot_size
+        post_count: 9144
+        subject_coverage: natural_vista
+        field_of_view: panoramic_wide
+        typical_usage: environment_vista
+        compatible_with:
+          - wide shot
+          - very wide shot
+          - atmospheric perspective
+          - sky focus
+        exclusive_with:
+          - portrait
+          - close-up
+          - headshot
+          - upper body
+      - tag: still life
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Static framing of inanimate objects arranged on a surface or
+          in a room.
+        use_when:
+          - Cutaway panels focusing on meaningful props (teacup, letter, weapon)
+          - Environmental storytelling through abandoned or arranged items
+        avoid_when:
+          - Dynamic action or active character dialogue
+        narrative_effects:
+          - Imparts symbolic meaning and contemplative pacing
+          - Provides narrative clues through object placement
+        source_category: composition.framing.shot_size
+        post_count: 9164
+        subject_coverage: inanimate_objects
+        field_of_view: medium_close
+        typical_usage: symbolic_cutaway
+        compatible_with:
+          - object focus
+          - depth of field
+          - blurry background
+        exclusive_with:
+          - full body
+          - cowboy shot
+          - wide shot
+      - tag: lower body
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Frames the character from hips or waist down to feet.
+        use_when:
+          - Walking or running approach panels building suspense
+          - Emphasizing footwork, kicking actions, or lower armor/clothing
+        avoid_when:
+          - Panels requiring facial expressions or dialogue delivery
+        narrative_effects:
+          - Builds suspense and mystery before revealing identity
+          - Focuses attention on locomotion and physical stance
+        source_category: composition.framing.shot_size
+        post_count: 7422
+        subject_coverage: waist_to_feet
+        field_of_view: medium
+        typical_usage: suspense_footwork
+        compatible_with:
+          - from below
+          - motion lines
+          - foot focus
+        exclusive_with:
+          - portrait
+          - close-up
+          - upper body
+          - headshot
+      - tag: head only
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Severely isolated framing showing only the subject's head, omitting
+          neck and torso.
+        use_when:
+          - Surreal or disembodied head compositions
+          - Peeking head cut-ins or comedic floating head motifs
+        avoid_when:
+          - Standard realistic comic dialogue framing
+        narrative_effects:
+          - Creates quirky, comedic, or uncanny visual isolation
+        source_category: composition.framing.shot_size
+        post_count: 3562
+        subject_coverage: head_isolated
+        field_of_view: tight
+        typical_usage: quirky_cutin
+        compatible_with:
+          - cut-in
+          - chibi inset
+          - split crop
+        exclusive_with:
+          - full body
+          - cowboy shot
+          - upper body
+      - tag: headshot
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Clean, framed composition focusing tightly on head and neck.
+        use_when:
+          - Character status panels, profile cards, or dossier graphics
+          - Clear identity portraits for comic cast sheets
+        avoid_when:
+          - Dynamic action or sweeping environment sequences
+        narrative_effects:
+          - Formal and clear character presentation
+        source_category: composition.framing.shot_size
+        post_count: 515
+        subject_coverage: head_and_neck
+        field_of_view: close
+        typical_usage: dossier_profile
+        compatible_with:
+          - facing viewer
+          - depth of field
+          - framed
+        exclusive_with:
+          - full body
+          - wide shot
+          - cowboy shot
+      - tag: feet only
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Extreme downward crop framing only feet and ground contact point.
+        use_when:
+          - Sudden stop or step forward beat
+          - Puddle stepping, crossing a threshold, or stealth creeping
+        avoid_when:
+          - Dialogue interactions and broad scene reveals
+        narrative_effects:
+          - Signals immediate movement change, arrival, or departure
+        source_category: composition.framing.shot_size
+        post_count: 913
+        subject_coverage: feet_and_floor
+        field_of_view: close_downward
+        typical_usage: movement_punctuation
+        compatible_with:
+          - from above
+          - foot focus
+          - motion lines
+        exclusive_with:
+          - upper body
+          - portrait
+          - close-up
+          - headshot
+      - tag: mugshot
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Strict frontal or profile booking photo composition against a
+          measurement backdrop.
+        use_when:
+          - Arrest or criminal booking scenes
+          - Comedic police lineup or wanted poster vignettes
+        avoid_when:
+          - Fluid narrative storytelling panels
+        narrative_effects:
+          - Institutional, sterile, or comedic criminal framing
+        source_category: composition.framing.shot_size
+        post_count: 878
+        subject_coverage: chest_to_head_formal
+        field_of_view: medium_close
+        typical_usage: booking_lineup
+        compatible_with:
+          - facing viewer
+          - profile
+          - straight-on
+        exclusive_with:
+          - dutch angle
+          - fisheye
+          - scenery
+      - tag: family portrait
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Formal group portrait arrangement of characters posed together.
+        use_when:
+          - Commemorative framed photograph inside a story
+          - Flashback memories of family or team unity
+        avoid_when:
+          - Solo character inner monologue
+        narrative_effects:
+          - Evokes nostalgia, bonds of affection, or lost happiness
+        source_category: composition.framing.shot_size
+        post_count: 152
+        subject_coverage: group_posed
+        field_of_view: medium_wide
+        typical_usage: memory_photo
+        compatible_with:
+          - photo inset
+          - group picture
+          - framed
+        exclusive_with:
+          - close-up
+          - headshot
+          - feet only
+      - tag: tachi-e
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Visual novel style standing character sprite against a neutral
+          or transparent background.
+        use_when:
+          - Dialogue cut-in overlays mimicking adventure/visual novel games
+          - Character design showcase in supplementary comic pages
+        avoid_when:
+          - Immersive natural comic environmental panels
+        narrative_effects:
+          - Gives a crisp, game-like character presentation
+        source_category: composition.framing.shot_size
+        post_count: 58870
+        subject_coverage: full_or_three_quarter_standing
+        field_of_view: medium_wide
+        typical_usage: visual_novel_overlay
+        compatible_with:
+          - facing viewer
+          - three quarter view
+          - full body
+          - upper body
+        exclusive_with:
+          - scenery
+          - very wide shot
+  camera_angle:
+    scope: panel
+    max_selected: 1
+    description: Vertical camera elevation and pitch angle relative to the subject.
+    tags:
+      - tag: from above
+        tier: core
+        reliability: high
+        visual_priority: 2
+        description: High-angle camera looking down onto the subject from an elevated
+          vantage point.
+        use_when:
+          - Conveying vulnerability, defeat, smallness, or introspection
+          - Overview of ground layouts, desks, maps, or floor combat
+          - Dramatic bird's-eye perspective on emotional crisis
+        avoid_when:
+          - Subject is meant to look imposing, dominant, or towering
+          - Standard eye-level horizontal conversational dialogue
+        narrative_effects:
+          - Diminishes subject scale and psychological dominance
+          - Enhances vulnerability, despair, or detached surveillance feeling
+        source_category: composition.camera_angle.orientation
+        post_count: 126439
+        vertical_axis: elevated
+        camera_elevation: high_angle
+        pitch_degrees: -30_to_-60
+        compatible_with:
+          - full body
+          - upper body
+          - dutch angle
+          - depth of field
+        exclusive_with:
+          - from below
+          - under shot
+          - worm's eye view
+          - straight-on
+      - tag: from below
+        tier: core
+        reliability: high
+        visual_priority: 2
+        description: Low-angle camera tilted upwards looking up at the subject.
+        use_when:
+          - Heroic entrances, power reveals, and imposing antagonists
+          - Emphasizing authority, dominance, monumental scale, or towering stature
+          - Dynamic upward combat attacks and jumping scenes
+        avoid_when:
+          - Subject is helpless, cowering, or defeated
+          - Flat neutral informational panels
+        narrative_effects:
+          - Magnifies power, heroism, menace, and commanding presence
+          - Imparts dramatic grandeur and physical scale
+        source_category: composition.camera_angle.orientation
+        post_count: 104802
+        vertical_axis: depressed
+        camera_elevation: low_angle
+        pitch_degrees: +30_to_+60
+        compatible_with:
+          - full body
+          - cowboy shot
+          - foreshortening
+          - dutch angle
+          - sky focus
+        exclusive_with:
+          - from above
+          - high up
+          - straight-on
+      - tag: straight-on
+        tier: core
+        reliability: high
+        visual_priority: 2
+        description: Eye-level camera perpendicular to the subject with zero vertical
+          pitch.
+        use_when:
+          - Neutral, grounded, and objective storytelling panels
+          - Direct confrontation eye-to-eye dialogue
+          - Clear informational baseline before dramatic angle shifts
+        avoid_when:
+          - Exaggerated verticality or dynamic overhead/underfoot action
+        narrative_effects:
+          - Creates direct emotional honesty and objective clarity
+          - Provides an uneditorialized, eye-to-eye connection
+        source_category: composition.camera_angle.orientation
+        post_count: 45352
+        vertical_axis: neutral
+        camera_elevation: eye_level
+        pitch_degrees: '0'
+        compatible_with:
+          - upper body
+          - facing viewer
+          - portrait
+          - side-by-side
+        exclusive_with:
+          - from above
+          - from below
+          - high up
+          - under shot
+          - worm's eye view
+      - tag: high up
+        tier: specialized
+        reliability: medium
+        visual_priority: 2
+        description: Extreme elevated viewpoint positioned significantly above the
+          ground level.
+        use_when:
+          - Rooftop perches, cliff edges, or aerial observation
+          - Looking down from a skyscraper or balcony into the streets below
+        avoid_when:
+          - Ground-level intimate dialogues
+        narrative_effects:
+          - Emphasizes height, vertigo, detachment, and spatial scope
+        source_category: composition.camera_angle.orientation
+        post_count: 309
+        vertical_axis: extreme_elevated
+        camera_elevation: aerial_high
+        pitch_degrees: -45_to_-80
+        compatible_with:
+          - from above
+          - wide shot
+          - scenery
+          - depth of field
+        exclusive_with:
+          - from below
+          - under shot
+          - straight-on
+      - tag: under shot
+        tier: specialized
+        reliability: medium
+        visual_priority: 2
+        description: Steep upward camera angle placed directly beneath the subject
+          looking up.
+        use_when:
+          - Dramatic leaping overhead, glass floor perspectives, or colossal giants
+          - Extreme dynamic action beats with foreshortened upward limbs
+        avoid_when:
+          - Ordinary conversation scenes
+        narrative_effects:
+          - Creates intense kinetic drama and towering physical presence
+        source_category: composition.camera_angle.orientation
+        post_count: 285
+        vertical_axis: steep_low
+        camera_elevation: ground_sublevel
+        pitch_degrees: +60_to_+85
+        compatible_with:
+          - foreshortening
+          - from below
+          - motion lines
+        exclusive_with:
+          - from above
+          - high up
+          - straight-on
+      - tag: chest height
+        tier: specialized
+        reliability: medium
+        visual_priority: 2
+        description: Camera positioned at the character's chest level, slightly lower
+          than eye level.
+        use_when:
+          - Subtle grounding effect in dialogue panels
+          - Emphasizing subtle character stature without dramatic low angle tilt
+        avoid_when:
+          - Extreme high/low angle cinematic sequences
+        narrative_effects:
+          - Imparts a grounded, sturdy observational perspective
+        source_category: composition.camera_angle.orientation
+        post_count: 201
+        vertical_axis: mid_torso_level
+        camera_elevation: chest_level
+        pitch_degrees: 0_to_+10
+        compatible_with:
+          - upper body
+          - cowboy shot
+          - facing viewer
+        exclusive_with:
+          - from above
+          - high up
+          - worm's eye view
+      - tag: worm's eye view
+        tier: specialized
+        reliability: high
+        visual_priority: 2
+        description: Extreme ground-level perspective looking directly upward from
+          floor level.
+        use_when:
+          - Colossal scale emphasizing towering giants or architecture
+          - Crawl/floor perspective during intense survival or knockdown moments
+        avoid_when:
+          - Standard talking head panels
+        narrative_effects:
+          - Maximizes feelings of intimidation, monumental scale, and vertical thrust
+        source_category: composition.camera_angle.orientation
+        post_count: 157
+        vertical_axis: floor_level
+        camera_elevation: ground_zero
+        pitch_degrees: +75_to_+90
+        compatible_with:
+          - foreshortening
+          - from below
+          - wide shot
+          - dutch angle
+        exclusive_with:
+          - from above
+          - high up
+          - straight-on
+  orientation:
+    scope: panel
+    max_selected: 1
+    description: Horizontal subject facing direction and rotational yaw relative to
+      the camera.
+    tags:
+      - tag: facing viewer
+        tier: core
+        reliability: high
+        visual_priority: 2
+        description: Subject is oriented directly toward the camera and reader.
+        use_when:
+          - Direct emotional confrontation, address, or dramatic realization
+          - Introducing character appearance clearly to the audience
+          - Direct eye contact moments in intimate or shocking scenes
+        avoid_when:
+          - Characters walking away or conversing sideways with another character
+        narrative_effects:
+          - Engages the reader directly, commanding full visual attention
+          - Builds immediate empathetic connection or confrontational intensity
+        source_category: composition.camera_angle.orientation
+        post_count: 87956
+        horizontal_axis: frontal
+        subject_facing: forward
+        yaw_degrees: '0'
+        compatible_with:
+          - upper body
+          - portrait
+          - straight-on
+          - close-up
+        exclusive_with:
+          - from behind
+          - profile
+          - sideways
+      - tag: from side
+        tier: core
+        reliability: high
+        visual_priority: 2
+        description: Subject viewed from a lateral side perspective.
+        use_when:
+          - Two-character dialogue facing each other across the frame
+          - Side-scrolling locomotion, walking, running, or sword swings
+          - Observational framing of ongoing character actions
+        avoid_when:
+          - Direct reader-address or symmetrical character portraits
+        narrative_effects:
+          - Establishes theatrical staging and lateral movement flow
+          - Provides an observational, third-person cinematic viewpoint
+        source_category: composition.camera_angle.orientation
+        post_count: 291504
+        horizontal_axis: lateral
+        subject_facing: lateral_90deg
+        yaw_degrees: '90'
+        compatible_with:
+          - upper body
+          - full body
+          - motion lines
+          - side-by-side
+        exclusive_with:
+          - facing viewer
+          - from behind
+      - tag: profile
+        tier: core
+        reliability: high
+        visual_priority: 2
+        description: Strict side silhouette/profile view showing exact lateral facial
+          contours.
+        use_when:
+          - Contemplative silhouettes, gazing toward horizon or into the distance
+          - Striking graphic panels highlighting nose, lip, and chin silhouette
+          - Opposing profile split panels during verbal clashes
+        avoid_when:
+          - Full facial emotional readability from both eyes
+        narrative_effects:
+          - Conveys stoicism, pensive reflection, or iconic silhouette aesthetics
+          - Dramatizes intense standoffs when paired with split compositions
+        source_category: composition.camera_angle.orientation
+        post_count: 163773
+        horizontal_axis: strict_lateral
+        subject_facing: profile_90deg
+        yaw_degrees: '90'
+        compatible_with:
+          - portrait
+          - close-up
+          - straight-on
+          - depth of field
+        exclusive_with:
+          - facing viewer
+          - three quarter view
+          - from behind
+      - tag: from behind
+        tier: core
+        reliability: high
+        visual_priority: 2
+        description: Camera positioned behind the character looking at their back.
+        use_when:
+          - Departure scenes, walking away, or facing down a distant army/horizon
+          - Concealing character facial reaction to build dramatic mystery
+          - Over-the-shoulder perspective precursors
+        avoid_when:
+          - Dialogue scenes requiring facial emotion readability
+        narrative_effects:
+          - Evokes mystery, solemn resolve, burden, or emotional detachment
+          - Invites reader to share the character's forward field of view
+        source_category: composition.camera_angle.orientation
+        post_count: 292437
+        horizontal_axis: dorsal
+        subject_facing: away_from_camera
+        yaw_degrees: '180'
+        compatible_with:
+          - full body
+          - upper body
+          - scenery
+          - wide shot
+        exclusive_with:
+          - facing viewer
+          - three quarter view
+          - profile
+      - tag: three quarter view
+        tier: core
+        reliability: high
+        visual_priority: 2
+        description: Subject angled approximately 45 degrees between frontal and lateral
+          orientation.
+        use_when:
+          - Default standard angle for rich facial depth and dynamic volume
+          - Conversational panels where character looks slightly off-camera
+          - Action stances that require volumetric body presentation
+        avoid_when:
+          - Strictly flat graphic symmetry or pure silhouette shots
+        narrative_effects:
+          - Maximizes three-dimensional volumetric depth and naturalism
+          - Prevents stiff frontal flat staging in comic panels
+        source_category: composition.camera_angle.orientation
+        post_count: 6208
+        horizontal_axis: oblique
+        subject_facing: oblique_45deg
+        yaw_degrees: '45'
+        compatible_with:
+          - upper body
+          - portrait
+          - cowboy shot
+          - depth of field
+        exclusive_with:
+          - profile
+          - from behind
+      - tag: sideways
+        tier: specialized
+        reliability: medium
+        visual_priority: 2
+        description: Subject oriented horizontally or leaning distinctly sideways
+          across the frame.
+        use_when:
+          - Lying down poses, falling through the air, or dramatic evasive rolls
+          - Dynamic horizontal flow along wide comic panels
+        avoid_when:
+          - Upright formal standing poses
+        narrative_effects:
+          - Disrupts vertical stability, evoking motion, relaxation, or disequilibrium
+        source_category: composition.camera_angle.orientation
+        post_count: 5074
+        horizontal_axis: horizontal_tilt
+        subject_facing: transverse
+        yaw_degrees: variable
+        compatible_with:
+          - motion blur
+          - motion lines
+          - dutch angle
+        exclusive_with:
+          - mugshot
+          - headshot
+      - tag: three quarter profile
+        tier: specialized
+        reliability: medium
+        visual_priority: 2
+        description: Steep oblique angle nearly reaching profile, showing only the
+          tip of the opposite eyelash/cheek.
+        use_when:
+          - Dramatic looking-away gestures or brooding expressions
+          - Glancing over the shoulder just before turning
+        avoid_when:
+          - Clear bilateral facial analysis
+        narrative_effects:
+          - Adds dramatic tension and guarded emotional distance
+        source_category: composition.camera_angle.orientation
+        post_count: 465
+        horizontal_axis: steep_oblique
+        subject_facing: oblique_70deg
+        yaw_degrees: '70'
+        compatible_with:
+          - portrait
+          - close-up
+          - depth of field
+        exclusive_with:
+          - facing viewer
+          - from behind
+      - tag: looking past viewer
+        tier: specialized
+        reliability: medium
+        visual_priority: 2
+        description: Subject faces forward but shifts eye gaze slightly beyond or
+          past the camera.
+        use_when:
+          - Realizing someone has appeared behind the observer
+          - Distracted reverie, daydreaming, or thousand-yard stare
+        avoid_when:
+          - Direct intense eye contact with the reader
+        narrative_effects:
+          - Creates subtle suspense, detachment, or peripheral realization
+        source_category: composition.camera_angle.orientation
+        post_count: 310
+        horizontal_axis: frontal_deflected_gaze
+        subject_facing: forward_offset_gaze
+        yaw_degrees: 5_to_15
+        compatible_with:
+          - portrait
+          - upper body
+          - close-up
+        exclusive_with:
+          - from behind
+  viewpoint:
+    scope: panel
+    max_selected: 1
+    description: Subjective first-person POV, situated environmental vantage points,
+      or mediated camera perspectives.
+    tags:
+      - tag: pov
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: First-person point-of-view placing the reader directly inside
+          the character's eyes.
+        use_when:
+          - High-immersion subjective experiences (waking up, being approached, being
+            attacked)
+          - Direct emotional confession or threat received firsthand
+        avoid_when:
+          - Third-person objective choreography where the viewpoint character must
+            be seen
+        narrative_effects:
+          - Maximizes visceral immersion and subjective emotional stakes
+          - Erases the boundary between reader and protagonist
+        source_category: composition.camera_angle.subjective_view
+        post_count: 168189
+        pov_type: first_person
+        observer_relation: embodied_first_person
+        immersion_level: maximum
+        compatible_with:
+          - pov hands
+          - facing viewer
+          - depth of field
+          - motion blur
+        exclusive_with:
+          - full body
+          - from behind
+          - profile
+      - tag: pov hands
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: First-person POV showing the observer's own hands reaching into
+          the frame.
+        use_when:
+          - Examining an object held in hands (letter, weapon, smartphone, key)
+          - Reaching out to grasp another character's hand or open a door
+          - Shocked examination of one's own trembling or transformed hands
+        avoid_when:
+          - Hands are not actively performing an action in the foreground
+        narrative_effects:
+          - Reinforces first-person physical grounding and tactile engagement
+        source_category: composition.camera_angle.subjective_view
+        post_count: 35321
+        pov_type: first_person_hands
+        observer_relation: embodied_tactile
+        immersion_level: maximum
+        compatible_with:
+          - pov
+          - hand focus
+          - object focus
+          - depth of field
+        exclusive_with:
+          - full body
+          - from behind
+      - tag: female pov
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: First-person point of view explicitly framed from a female character's
+          perspective.
+        use_when:
+          - Romance or drama scenes emphasizing the heroine's viewpoint
+          - Situating perspective with visible female protagonist body/cues
+        avoid_when:
+          - Gender-neutral or third-person objective sequences
+        narrative_effects:
+          - Anchors reader perspective specifically to the female lead's subjective
+            gaze
+        source_category: composition.camera_angle.subjective_view
+        post_count: 7073
+        pov_type: first_person_gendered
+        observer_relation: embodied_female
+        immersion_level: high
+        compatible_with:
+          - pov
+          - pov hands
+          - facing viewer
+        exclusive_with:
+          - full body
+          - from behind
+      - tag: pov doorway
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: First-person POV framed looking through an open doorway into
+          a room.
+        use_when:
+          - Arriving at a room to discover a scene or surprise inside
+          - Peeking into someone's room or witnessing a secret conversation
+        avoid_when:
+          - Outdoor open field sequences
+        narrative_effects:
+          - Creates threshold tension, voyeuristic discovery, and spatial transition
+        source_category: composition.camera_angle.subjective_view
+        post_count: 2761
+        pov_type: first_person_situated
+        observer_relation: threshold_observer
+        immersion_level: high
+        compatible_with:
+          - pov
+          - framed
+          - depth of field
+        exclusive_with:
+          - scenery
+          - landscape
+      - tag: pov across table
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: First-person POV seated directly across a dining, meeting, or
+          interrogation table from the subject.
+        use_when:
+          - Cafe/dinner dates, business negotiations, or interrogation confrontations
+          - Intimate seated conversational exchanges
+        avoid_when:
+          - Active standing action or outdoor travel
+        narrative_effects:
+          - Establishes conversational intimacy, tension, or interrogation pressure
+        source_category: composition.camera_angle.subjective_view
+        post_count: 1594
+        pov_type: first_person_seated
+        observer_relation: tablemate_interlocutor
+        immersion_level: high
+        compatible_with:
+          - pov
+          - upper body
+          - facing viewer
+          - depth of field
+        exclusive_with:
+          - full body
+          - from behind
+          - wide shot
+      - tag: against fourth wall
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Character pressed against or interacting directly with the metaphorical
+          fourth wall/screen boundary.
+        use_when:
+          - Meta-commentary, comedic fourth-wall breaks, or claustrophobic trapped
+            scenes
+        avoid_when:
+          - Pure immersion realistic serious drama
+        narrative_effects:
+          - Breaks narrative barrier, evoking comedic awareness or uncanny entrapment
+        source_category: composition.camera_angle.subjective_view
+        post_count: 1239
+        pov_type: meta_subjective
+        observer_relation: fourth_wall_boundary
+        immersion_level: meta
+        compatible_with:
+          - facing viewer
+          - close-up
+          - framed
+        exclusive_with:
+          - scenery
+          - very wide shot
+      - tag: pov peephole
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Circular masked first-person viewpoint looking through a door
+          peephole or optical scope.
+        use_when:
+          - Answering a knock on the door with suspicious visitors outside
+          - Spying or surveillance through a keyhole or peephole
+        avoid_when:
+          - Open unobstructed scene compositions
+        narrative_effects:
+          - Builds intense suspense, paranoia, and voyeuristic restriction
+        source_category: composition.camera_angle.subjective_view
+        post_count: 820
+        pov_type: first_person_aperture
+        observer_relation: peephole_voyeur
+        immersion_level: high
+        compatible_with:
+          - round border
+          - fisheye
+          - vignetting
+          - distortion
+        exclusive_with:
+          - wide shot
+          - full body
+      - tag: pov across bed
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: First-person perspective lying down or seated on a bed looking
+          across at another person.
+        use_when:
+          - Morning wake-up scenes, hospital bedside visits, or bedroom dialogue
+        avoid_when:
+          - Public outdoor bustling scenes
+        narrative_effects:
+          - Evokes vulnerability, tenderness, recovery, or domestic intimacy
+        source_category: composition.camera_angle.subjective_view
+        post_count: 804
+        pov_type: first_person_recumbent
+        observer_relation: bedside_companion
+        immersion_level: high
+        compatible_with:
+          - pov
+          - upper body
+          - facing viewer
+          - depth of field
+        exclusive_with:
+          - full body
+          - scenery
+      - tag: taker pov
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: POV of the person taking a photo or recording video of the subject.
+        use_when:
+          - Photographing friends during a trip or event
+          - Documentary or in-universe camera capture moments
+        avoid_when:
+          - Non-mediated narrative storytelling
+        narrative_effects:
+          - Frames the subject as being actively documented by the protagonist
+        source_category: composition.camera_angle.subjective_view
+        post_count: 674
+        pov_type: first_person_photographer
+        observer_relation: camera_operator
+        immersion_level: high
+        compatible_with:
+          - viewfinder
+          - facing viewer
+          - upper body
+        exclusive_with:
+          - from behind
+      - tag: pov dating
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: POV simulating an otome/galge dating simulation perspective opposite
+          a love interest.
+        use_when:
+          - Romantic date scenes, amusement park outings, or walk-and-talk dating
+            beats
+        avoid_when:
+          - Grim battle action sequences
+        narrative_effects:
+          - Heightens romantic immersion and emotional focus
+        source_category: composition.camera_angle.subjective_view
+        post_count: 287
+        pov_type: first_person_dating
+        observer_relation: romantic_partner
+        immersion_level: high
+        compatible_with:
+          - pov
+          - upper body
+          - facing viewer
+          - blurry background
+        exclusive_with:
+          - from behind
+          - scenery
+      - tag: pov shadow
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: First-person view where the observer's shadow falls onto the
+          foreground subject or ground.
+        use_when:
+          - Intimidating approach where the observer looms over someone
+          - Sunny day walking where observer's silhouette is projected forward
+        avoid_when:
+          - Diffused lighting or darkness without shadows
+        narrative_effects:
+          - Asserts presence and spatial proximity without showing the full observer
+            body
+        source_category: composition.camera_angle.subjective_view
+        post_count: 240
+        pov_type: first_person_silhouette
+        observer_relation: looming_presence
+        immersion_level: high
+        compatible_with:
+          - pov
+          - from above
+        exclusive_with:
+          - from behind
+      - tag: lap pov
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: POV looking down directly into one's own lap or looking up from
+          someone's lap (lap pillow).
+        use_when:
+          - Lap pillow resting scenes or looking down at hands resting on knees
+        avoid_when:
+          - Standing dynamic athletic action
+        narrative_effects:
+          - Creates extreme warmth, comfort, vulnerability, or introspection
+        source_category: composition.camera_angle.subjective_view
+        post_count: 159
+        pov_type: first_person_lap
+        observer_relation: resting_intimate
+        immersion_level: high
+        compatible_with:
+          - pov
+          - close-up
+        exclusive_with:
+          - full body
+          - wide shot
+      - tag: pov adoring
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Subjective viewpoint looking up at an admired, loved, or revered
+          figure.
+        use_when:
+          - Mentee looking up at mentor, or lover looking admiringly at partner
+        avoid_when:
+          - Hostile standoff or antagonistic confrontation
+        narrative_effects:
+          - Infuses the panel with affection, wonder, and reverence
+        source_category: composition.camera_angle.subjective_view
+        post_count: 158
+        pov_type: first_person_affective
+        observer_relation: adoring_admirer
+        immersion_level: high
+        compatible_with:
+          - pov
+          - from below
+          - portrait
+          - sparkle
+          - bloom
+        exclusive_with:
+          - from behind
+      - tag: multiple pov
+        tier: experimental
+        reliability: medium
+        visual_priority: 1
+        description: Panel arrangement displaying simultaneous first-person perspectives
+          from different characters.
+        use_when:
+          - Mutual recognition beats showing both characters' eyes-view side-by-side
+        avoid_when:
+          - Standard single-camera panels
+        narrative_effects:
+          - Highlights dual perspective and shared emotional realization
+        source_category: composition.camera_angle.subjective_view
+        post_count: 136
+        pov_type: multi_subjective
+        observer_relation: dual_observers
+        immersion_level: high
+        compatible_with:
+          - split screen
+          - side-by-side
+          - cut-in
+        exclusive_with:
+          - mugshot
+      - tag: under table
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Camera situated underneath a desk or table looking out into the
+          room or at hidden feet/items.
+        use_when:
+          - Hiding beneath furniture during stealth, hide-and-seek, or danger
+          - Secret hand/foot messages passed under the table during a meeting
+        avoid_when:
+          - Open fields or standard stand-up dialogue
+        narrative_effects:
+          - Creates claustrophobic suspense, secrecy, and covert observation
+        source_category: composition.camera_angle.situated_view
+        post_count: 3886
+        pov_type: situated_subterranean
+        observer_relation: concealed_underneath
+        immersion_level: high
+        compatible_with:
+          - framed
+          - depth of field
+        exclusive_with:
+          - wide shot
+          - scenery
+      - tag: partially underwater shot
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Split waterline framing showing both above-water surface and
+          submerged world simultaneously.
+        use_when:
+          - Swimming, beach, hot springs, or pool scenes showing surface and subsurface
+            action
+        avoid_when:
+          - Dry land indoor scenes
+        narrative_effects:
+          - Creates striking visual bifurcation between air and aquatic depth
+        source_category: composition.camera_angle.situated_view
+        post_count: 2565
+        pov_type: situated_waterline
+        observer_relation: aquatic_interface
+        immersion_level: medium
+        compatible_with:
+          - refraction
+          - depth of field
+        exclusive_with:
+          - scenery
+      - tag: from outside
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Camera positioned outdoors or exterior to a structure looking
+          in toward occupants.
+        use_when:
+          - Looking into a cozy cafe/home from a rainy street outside
+          - Surveillance from outside a building
+        avoid_when:
+          - Deep interior intimate conversations with no building exterior
+        narrative_effects:
+          - Establishes physical distance, longing, isolation, or voyeuristic separation
+        source_category: composition.camera_angle.situated_view
+        post_count: 1934
+        pov_type: situated_exterior
+        observer_relation: exterior_bystander
+        immersion_level: medium
+        compatible_with:
+          - through window
+          - framed
+          - wide shot
+        exclusive_with:
+          - from inside
+      - tag: through window
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Framed looking through a glass windowpane with glass reflections
+          or raindrops visible.
+        use_when:
+          - Melancholy character gazing through rain-streaked glass
+          - Looking into a storefront or looking out at a changing city
+        avoid_when:
+          - Unobstructed open outdoor action
+        narrative_effects:
+          - Adds emotional melancholy, barrier, reflection, and quiet contemplation
+        source_category: composition.camera_angle.situated_view
+        post_count: 491
+        pov_type: situated_glass_barrier
+        observer_relation: window_mediated
+        immersion_level: medium
+        compatible_with:
+          - reflection
+          - depth of field
+          - from outside
+        exclusive_with:
+          - fisheye
+      - tag: from inside
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Camera positioned inside a room, vehicle, or structure looking
+          toward an entrance or window.
+        use_when:
+          - Looking out from a room at someone arriving or passing by outside
+          - Interior car/train cabin perspective looking out at scenery
+        avoid_when:
+          - Pure outdoor vistas with no interior framing
+        narrative_effects:
+          - Establishes safe haven enclosure or interior spatial grounding
+        source_category: composition.camera_angle.situated_view
+        post_count: 309
+        pov_type: situated_interior
+        observer_relation: interior_occupant
+        immersion_level: medium
+        compatible_with:
+          - framed
+          - depth of field
+        exclusive_with:
+          - from outside
+      - tag: around corner
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Camera peeking around an architectural wall corner or hallway
+          bend.
+        use_when:
+          - Stealth stalking, tailing suspects, or preparing an ambush
+          - Timid character gathering courage before entering a room
+        avoid_when:
+          - Open fields without architectural corners
+        narrative_effects:
+          - Injects immediate suspense, tactical awareness, and covert observation
+        source_category: composition.camera_angle.situated_view
+        post_count: 271
+        pov_type: situated_occluded
+        observer_relation: corner_peeker
+        immersion_level: high
+        compatible_with:
+          - framed
+          - shoulder peek
+          - depth of field
+        exclusive_with:
+          - wide shot
+      - tag: refrigerator interior
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Camera placed inside an open refrigerator looking outward at
+          character's illuminated face.
+        use_when:
+          - Late-night snacking, searching for food, or dramatic fridge light glow
+            beats
+        avoid_when:
+          - Outdoor or fantasy action scenes
+        narrative_effects:
+          - Iconic cinematic framing providing strong interior lighting onto the subject
+        source_category: composition.camera_angle.situated_view
+        post_count: 259
+        pov_type: situated_appliance
+        observer_relation: fridge_interior
+        immersion_level: high
+        compatible_with:
+          - facing viewer
+          - close-up
+          - framed
+        exclusive_with:
+          - scenery
+          - landscape
+      - tag: through ground
+        tier: experimental
+        reliability: low
+        visual_priority: 1
+        description: Cross-section underground view looking upward through transparent
+          soil or floor.
+        use_when:
+          - Buried objects, fantasy subterranean roots, or burrowing creatures
+        avoid_when:
+          - Standard realistic scenes
+        narrative_effects:
+          - Reveals hidden subterranean dimensions
+        source_category: composition.camera_angle.situated_view
+        post_count: 244
+        pov_type: situated_subsurface
+        observer_relation: underground_observer
+        immersion_level: medium
+        compatible_with:
+          - from below
+          - under shot
+        exclusive_with:
+          - portrait
+      - tag: behind tree
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Camera positioned behind a tree trunk with bark/leaves partially
+          framing the subject.
+        use_when:
+          - Park or forest spying, secret surveillance, or timid love confession stalking
+        avoid_when:
+          - Indoor rooms or urban alleys without greenery
+        narrative_effects:
+          - Creates voyeuristic staging and organic foreground depth
+        source_category: composition.camera_angle.situated_view
+        post_count: 228
+        pov_type: situated_foliage
+        observer_relation: forest_voyeur
+        immersion_level: high
+        compatible_with:
+          - framed
+          - blurry foreground
+          - depth of field
+        exclusive_with:
+          - scenery
+      - tag: behind curtains
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Framed peeking through or behind parted fabric window curtains.
+        use_when:
+          - Stealthily watching street events from a dark bedroom
+          - Theatrical stage backstage waiting
+        avoid_when:
+          - Outdoor open scenes
+        narrative_effects:
+          - Adds dramatic secrecy, domestic intrigue, and rich foreground framing
+        source_category: composition.camera_angle.situated_view
+        post_count: 164
+        pov_type: situated_drapery
+        observer_relation: curtain_peeker
+        immersion_level: high
+        compatible_with:
+          - framed
+          - blurry foreground
+          - depth of field
+        exclusive_with:
+          - wide shot
+      - tag: through portal
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Framed looking across a magical portal or dimensional rift into
+          another world.
+        use_when:
+          - Isekai transitions, summoning rituals, or cross-realm communication
+        avoid_when:
+          - Grounded mundane slice-of-life scenes
+        narrative_effects:
+          - Contrasts two starkly different realities across a single boundary
+        source_category: composition.camera_angle.situated_view
+        post_count: 125
+        pov_type: situated_dimensional
+        observer_relation: interdimensional_viewer
+        immersion_level: medium
+        compatible_with:
+          - framed
+          - bloom
+          - double exposure
+        exclusive_with:
+          - mugshot
+      - tag: in trunk
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Camera positioned inside a vehicle trunk or chest looking upward
+          at person opening the lid.
+        use_when:
+          - Kidnapping, contraband inspection, or treasure chest opening scenes
+        avoid_when:
+          - General open dialogue
+        narrative_effects:
+          - Iconic cinematic framing evoking crime drama or suspenseful discovery
+        source_category: composition.camera_angle.situated_view
+        post_count: 120
+        pov_type: situated_enclosure
+        observer_relation: trunk_interior
+        immersion_level: high
+        compatible_with:
+          - from below
+          - facing viewer
+          - framed
+        exclusive_with:
+          - landscape
+          - wide shot
+      - tag: in refrigerator
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Situated directly inside a cold refrigerator compartment looking
+          out.
+        use_when:
+          - Variant of refrigerator interior emphasizing claustrophobic storage placement
+        avoid_when:
+          - Outdoor daylight scenes
+        narrative_effects:
+          - Emphasizes cold illumination and intimate domestic humor
+        source_category: composition.camera_angle.situated_view
+        post_count: 102
+        pov_type: situated_appliance
+        observer_relation: fridge_interior
+        immersion_level: high
+        compatible_with:
+          - refrigerator interior
+          - facing viewer
+        exclusive_with:
+          - landscape
+      - tag: mirror selfie
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Character holding a phone photographing their reflection in a
+          mirror.
+        use_when:
+          - Social media posts, outfit checks, bedroom selfies, or casual comic vignettes
+        avoid_when:
+          - Historical or high-fantasy settings without smartphones/mirrors
+        narrative_effects:
+          - Creates modern, casual, relatable character-driven self-presentation
+        source_category: composition.camera_angle.mediated_view
+        post_count: 1296
+        pov_type: mediated_selfie
+        observer_relation: self_mediated
+        immersion_level: medium
+        compatible_with:
+          - viewer holding phone
+          - reflection
+          - upper body
+        exclusive_with:
+          - from behind
+          - scenery
+      - tag: viewer holding phone
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Framed with the reader's hands holding a smartphone displaying
+          an on-screen image.
+        use_when:
+          - Reading a text message, reviewing a photo, or watching a video call
+        avoid_when:
+          - Direct unmediated narrative scenes
+        narrative_effects:
+          - Embeds mediated electronic communication directly into reader hands
+        source_category: composition.camera_angle.mediated_view
+        post_count: 784
+        pov_type: mediated_device
+        observer_relation: device_user
+        immersion_level: high
+        compatible_with:
+          - pov hands
+          - depth of field
+        exclusive_with:
+          - scenery
+          - landscape
+      - tag: against mirror
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Subject leaning directly against a reflective mirror surface.
+        use_when:
+          - Dressing room melancholy, psychological dual-identity, or introspective
+            moments
+        avoid_when:
+          - Outdoor natural settings
+        narrative_effects:
+          - Doubles visual presence and suggests psychological duality or vanity
+        source_category: composition.camera_angle.mediated_view
+        post_count: 222
+        pov_type: mediated_reflective
+        observer_relation: mirror_adjacent
+        immersion_level: medium
+        compatible_with:
+          - reflection
+          - depth of field
+          - portrait
+        exclusive_with:
+          - scenery
+      - tag: eyewear view
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Viewpoint framed through eyeglasses, sunglasses, or goggles showing
+          tint/frame edges.
+        use_when:
+          - Putting on glasses, HUD tactical goggles, or tinted sunglass perspectives
+        avoid_when:
+          - Character does not wear eyewear
+        narrative_effects:
+          - Filters the scene through optical tint and distinctive frame geometry
+        source_category: composition.camera_angle.mediated_view
+        post_count: 215
+        pov_type: mediated_optic
+        observer_relation: eyewear_wearer
+        immersion_level: high
+        compatible_with:
+          - pov
+          - vignetting
+          - depth of field
+        exclusive_with:
+          - full body
+      - tag: fixed-point camera
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Static surveillance camera or fixed security angle mounted high
+          on a wall.
+        use_when:
+          - CCTV security footage, interrogation monitoring, or detached clinical
+            recording
+        avoid_when:
+          - Fluid emotional cinematic storytelling
+        narrative_effects:
+          - Conveys clinical surveillance, cold detachment, and ominous observation
+        source_category: composition.camera_angle.mediated_view
+        post_count: 208
+        pov_type: mediated_surveillance
+        observer_relation: security_system
+        immersion_level: low
+        compatible_with:
+          - from above
+          - camera feed
+          - scanlines
+          - time lapse
+        exclusive_with:
+          - close-up
+          - portrait
+      - tag: through mirror
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Viewpoint looking through a two-way mirror or into a mirror reflection
+          from behind glass.
+        use_when:
+          - Interrogation observation rooms or surreal mirror world transitions
+        avoid_when:
+          - Unreflective standard rooms
+        narrative_effects:
+          - Builds psychological separation, secret observation, and uncanny reflection
+        source_category: composition.camera_angle.mediated_view
+        post_count: 109
+        pov_type: mediated_two_way
+        observer_relation: mirror_voyeur
+        immersion_level: medium
+        compatible_with:
+          - reflection
+          - depth of field
+        exclusive_with:
+          - wide shot
+      - tag: camera feed
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Displays live camera recording interface with timestamp, REC
+          indicator, or battery icons.
+        use_when:
+          - Found footage style storytelling, live broadcasting, or body-cam scenes
+        avoid_when:
+          - Traditional fantasy or historical settings
+        narrative_effects:
+          - Provides technological realism, urgency, and live documentation feeling
+        source_category: composition.framing.arrangement
+        post_count: 105
+        pov_type: mediated_hud
+        observer_relation: broadcast_viewer
+        immersion_level: high
+        compatible_with:
+          - fixed-point camera
+          - viewfinder
+          - scanlines
+        exclusive_with:
+          - scenery
+  perspective:
+    scope: panel
+    max_selected: 2
+    description: Optical lens projection, linear perspective convergence, and spatial
+      distortion.
+    tags:
+      - tag: dutch angle
+        tier: core
+        reliability: high
+        visual_priority: 3
+        description: Camera is tilted on its roll axis so the horizon line is slanted.
+        use_when:
+          - Psychological instability, shock, disorientation, or madness
+          - Intense fast-paced combat dynamic diagonal energy
+          - Unease, supernatural danger, or narrative crisis
+        avoid_when:
+          - Calm, peaceful slice-of-life scenes requiring horizontal stability
+        narrative_effects:
+          - Injects immediate psychological tension, urgency, and kinetic instability
+          - Breaks horizontal complacency and accelerates visual flow
+        source_category: composition.camera_angle.perspective
+        post_count: 144659
+        lens_projection: canted_roll
+        distortion_level: moderate
+        spatial_compression: diagonal_tilt
+        compatible_with:
+          - upper body
+          - full body
+          - from below
+          - from above
+          - motion lines
+        exclusive_with:
+          - isometric
+          - straight-on
+      - tag: foreshortening
+        tier: core
+        reliability: high
+        visual_priority: 3
+        description: Strong optical perspective compression where limbs or weapons
+          extending toward camera appear dramatically enlarged.
+        use_when:
+          - Punches, kicks, sword thrusts, or reaching hands directed at the viewer
+          - Dynamic action poses bursting out of the panel plane
+        avoid_when:
+          - Static neutral standing poses
+        narrative_effects:
+          - Pushes action directly into the reader's face, creating extreme kinetic
+            pop
+        source_category: composition.camera_angle.perspective
+        post_count: 62736
+        lens_projection: wide_angle_foreshortened
+        distortion_level: high
+        spatial_compression: depth_exaggeration
+        compatible_with:
+          - from below
+          - hand focus
+          - weapon focus
+          - motion lines
+          - dutch angle
+        exclusive_with:
+          - isometric
+      - tag: perspective
+        tier: core
+        reliability: high
+        visual_priority: 3
+        description: Strong architectural or spatial linear perspective emphasizing
+          converging geometric lines.
+        use_when:
+          - Long hallways, urban avenues, railway tracks, or futuristic corridors
+          - Emphasizing spatial depth and architectural grandeur
+        avoid_when:
+          - Abstract flat background compositions
+        narrative_effects:
+          - Draws the reader's eye deep into the background vanishing point
+        source_category: composition.camera_angle.perspective
+        post_count: 8929
+        lens_projection: linear_converging
+        distortion_level: medium
+        spatial_compression: depth_extension
+        compatible_with:
+          - vanishing point
+          - wide shot
+          - from above
+          - scenery
+        exclusive_with:
+          - isometric
+      - tag: fisheye
+        tier: specialized
+        reliability: high
+        visual_priority: 3
+        description: Ultra wide-angle barrel distortion curving straight lines outward
+          in a spherical projection.
+        use_when:
+          - Claustrophobic indoor spaces, chaotic skate/action energy, or peephole
+            views
+          - Exaggerating close proximity of a character looming right against the
+            lens
+        avoid_when:
+          - Realistic proportion architectural renderings or serious stoic portraits
+        narrative_effects:
+          - Creates striking curvilinear distortion, intense intimacy, or psychedelic
+            dizziness
+        source_category: composition.camera_angle.perspective
+        post_count: 6245
+        lens_projection: curvilinear_barrel
+        distortion_level: extreme
+        spatial_compression: spherical_expansion
+        compatible_with:
+          - pov peephole
+          - close-up
+          - from below
+          - vignetting
+        exclusive_with:
+          - isometric
+          - straight-on
+      - tag: vanishing point
+        tier: specialized
+        reliability: high
+        visual_priority: 3
+        description: Strong one-point perspective where all orthogonal lines converge
+          to a single focal point.
+        use_when:
+          - Endless roads, tunnels, colonnades, or solitary walks into destiny
+          - Focusing reader gaze directly down a corridor toward a focal subject
+        avoid_when:
+          - Organic chaotic outdoor natural forests without clean linear lines
+        narrative_effects:
+          - Commands absolute gaze guidance toward the central vanishing destination
+        source_category: composition.camera_angle.perspective
+        post_count: 1443
+        lens_projection: one_point_linear
+        distortion_level: medium
+        spatial_compression: infinite_depth
+        compatible_with:
+          - perspective
+          - scenery
+          - wide shot
+          - from behind
+        exclusive_with:
+          - isometric
+          - fisheye
+      - tag: isometric
+        tier: specialized
+        reliability: high
+        visual_priority: 3
+        description: Axonometric parallel projection without perspective convergence
+          or vanishing points.
+        use_when:
+          - Tactical battle maps, dollhouse cutaways, retro RPG game aesthetics
+          - Overview room diagrams and architectural cross-sections
+        avoid_when:
+          - Cinematic dynamic emotional action sequences
+        narrative_effects:
+          - Imparts technical precision, video-game charm, and spatial clarity
+        source_category: composition.camera_angle.perspective
+        post_count: 1340
+        lens_projection: parallel_axonometric
+        distortion_level: none_affine
+        spatial_compression: infinite_focal_length
+        compatible_with:
+          - full body
+          - from above
+          - dollhouse view
+        exclusive_with:
+          - dutch angle
+          - fisheye
+          - vanishing point
+          - perspective
+          - foreshortening
+      - tag: forced perspective
+        tier: specialized
+        reliability: medium
+        visual_priority: 3
+        description: Optical illusion trick aligning foreground and background objects
+          to manipulate apparent scale.
+        use_when:
+          - Comedic photo poses (holding the sun, pinching a giant, crushing miniature
+            people)
+          - Visual tricks manipulating scale perception
+        avoid_when:
+          - Grounded standard narrative panels
+        narrative_effects:
+          - Creates playful optical wit and imaginative scale interplay
+        source_category: composition.camera_angle.perspective
+        post_count: 259
+        lens_projection: depth_scale_illusion
+        distortion_level: high
+        spatial_compression: plane_superimposition
+        compatible_with:
+          - size comparison
+          - hand focus
+          - depth of field
+        exclusive_with:
+          - isometric
+      - tag: dollhouse view
+        tier: specialized
+        reliability: medium
+        visual_priority: 3
+        description: Cutaway architectural cross-section revealing multiple rooms
+          simultaneously like a dollhouse.
+        use_when:
+          - Showing simultaneous actions across different rooms in a house/building
+          - Mansion floorplans or cross-section comic infographics
+        avoid_when:
+          - Standard single-room conversational storytelling
+        narrative_effects:
+          - Provides omniscient multi-room situational awareness
+        source_category: composition.camera_angle.perspective
+        post_count: 183
+        lens_projection: architectural_cutaway
+        distortion_level: low
+        spatial_compression: planar_cross_section
+        compatible_with:
+          - isometric
+          - full composition
+          - wide shot
+        exclusive_with:
+          - close-up
+          - portrait
+          - fisheye
+      - tag: atmospheric perspective
+        tier: specialized
+        reliability: medium
+        visual_priority: 3
+        description: Gradual loss of contrast and shifting toward pale blue/haze in
+          distant background layers.
+        use_when:
+          - Epic mountain ranges, vast fantasy horizons, and expansive outdoor vistas
+        avoid_when:
+          - Indoor rooms or close character shots
+        narrative_effects:
+          - Imparts immense geographic depth, scale, and atmospheric realism
+        source_category: composition.visual_effect.effect.general
+        post_count: 299
+        lens_projection: aerial_haze_depth
+        distortion_level: low
+        spatial_compression: deep_layering
+        compatible_with:
+          - landscape
+          - scenery
+          - very wide shot
+          - wide shot
+        exclusive_with:
+          - close-up
+          - portrait
+  framing:
+    scope: panel
+    max_selected: 2
+    description: Deliberate crops, spatial staging arrangements, internal frames,
+      borders, and insets.
+    tags:
+      - tag: over shoulder
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Camera positioned behind one character's shoulder looking at
+          a second facing subject.
+        use_when:
+          - Dialogue exchanges establishing spatial relation between two speakers
+          - Confrontations where the facing character reacts to the foreground speaker
+        avoid_when:
+          - Solo character introspective scenes
+        narrative_effects:
+          - Connects conversational partners and establishes directional eye-lines
+        source_category: composition.framing.body_part_anchor.shoulder.over_shoulder
+        post_count: 15041
+        framing_type: spatial_anchor
+        compositional_device: ots_shot
+        crop_boundary: shoulder_foreground
+        compatible_with:
+          - facing viewer
+          - upper body
+          - portrait
+          - depth of field
+        exclusive_with:
+          - full body
+          - scenery
+      - tag: faceless
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Character's face is obscured, cropped out, or left featureless.
+        use_when:
+          - Anonymous mob characters, mysterious antagonists, or emotional depersonalization
+        avoid_when:
+          - Expressive lead character dialogue
+        narrative_effects:
+          - Creates eerie anonymity, emotional numbness, or threatening menace
+        source_category: composition.framing.arrangement
+        post_count: 60695
+        framing_type: occlusion
+        compositional_device: facial_obscurity
+        crop_boundary: face_masked
+        compatible_with:
+          - upper body
+          - full body
+          - from behind
+        exclusive_with:
+          - eye focus
+          - close-up
+      - tag: shoulder peek
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Character peeking out from behind another person's shoulder.
+        use_when:
+          - Timid companions seeking protection, cute peeking moments
+        avoid_when:
+          - Dominant solo protagonist actions
+        narrative_effects:
+          - Highlights shyness, dependence, or playful curiosity
+        source_category: composition.framing.arrangement
+        post_count: 2733
+        framing_type: spatial_anchor
+        compositional_device: peeking_figure
+        crop_boundary: partial_shoulder
+        compatible_with:
+          - behind another
+          - upper body
+        exclusive_with:
+          - scenery
+      - tag: behind another
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: One character positioned directly behind another in depth.
+        use_when:
+          - Bodyguard protecting client, mentor standing behind student, stalking
+            shadow
+        avoid_when:
+          - Solo single-character scenes
+        narrative_effects:
+          - Establishes hierarchy, protection, manipulation, or looming threat
+        source_category: composition.framing.arrangement
+        post_count: 4939
+        framing_type: depth_layering
+        compositional_device: foreground_background_pairing
+        crop_boundary: layered_subjects
+        compatible_with:
+          - depth of field
+          - upper body
+          - full body
+        exclusive_with:
+          - scenery
+      - tag: feet out of frame
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Crops the character just above the feet or ankles.
+        use_when:
+          - Keeping focus on full outfit and body gesture while simplifying floor
+            drawing
+        avoid_when:
+          - Footwork or kicking choreography
+        narrative_effects:
+          - Clean vertical framing prioritizing posture over floor contact
+        source_category: composition.framing.crop
+        post_count: 201142
+        framing_type: deliberate_crop
+        compositional_device: lower_boundary_trim
+        crop_boundary: above_ankles
+        compatible_with:
+          - cowboy shot
+          - upper body
+          - from below
+        exclusive_with:
+          - feet only
+          - foot focus
+      - tag: cropped torso
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Tightly crops the midsection/torso, cutting off head and legs.
+        use_when:
+          - Showing hands fiddling with belt, drawing a sword, or fastening a jacket
+        avoid_when:
+          - Dialogue requiring facial emotions
+        narrative_effects:
+          - Focuses attention on attire manipulation, gear adjustment, or physical
+            posture
+        source_category: composition.framing.crop
+        post_count: 63401
+        framing_type: deliberate_crop
+        compositional_device: midsection_isolation
+        crop_boundary: chest_to_hips
+        compatible_with:
+          - hand focus
+          - weapon focus
+          - out of frame
+        exclusive_with:
+          - portrait
+          - close-up
+          - headshot
+      - tag: cropped legs
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Frames the lower limbs while cropping out the upper body.
+        use_when:
+          - Showing stride, running shoes, knee stockings, or martial arts stances
+        avoid_when:
+          - Facial dialogue scenes
+        narrative_effects:
+          - Highlights kinetic locomotion and lower body action
+        source_category: composition.framing.crop
+        post_count: 62791
+        framing_type: deliberate_crop
+        compositional_device: lower_limb_isolation
+        crop_boundary: waist_down
+        compatible_with:
+          - lower body
+          - leg focus
+          - foot focus
+        exclusive_with:
+          - portrait
+          - upper body
+      - tag: out of frame
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Part of the subject deliberately extends outside the panel boundaries.
+        use_when:
+          - Dynamic action overflowing panel borders, or someone entering/exiting
+            the shot
+        avoid_when:
+          - Neat, fully self-contained formal portraits
+        narrative_effects:
+          - Conveys expansive motion that cannot be contained by the frame
+        source_category: composition.framing.crop
+        post_count: 40286
+        framing_type: deliberate_crop
+        compositional_device: border_overflow
+        crop_boundary: unbounded
+        compatible_with:
+          - foreshortening
+          - motion lines
+          - dutch angle
+        exclusive_with:
+          - framed
+      - tag: foot out of frame
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: One foot extends beyond the bottom or side border.
+        use_when:
+          - Dynamic stepping or kicking motions breaking the frame
+        avoid_when:
+          - Static seated poses
+        narrative_effects:
+          - Adds kinetic dynamism to movement
+        source_category: composition.framing.crop
+        post_count: 35315
+        framing_type: deliberate_crop
+        compositional_device: single_limb_crop
+        crop_boundary: foot_edge
+        compatible_with:
+          - motion lines
+          - full body
+        exclusive_with:
+          - feet only
+      - tag: head out of frame
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Subject's head is cropped out above the upper border.
+        use_when:
+          - De-emphasizing identity, highlighting an imposing physical build, or showing
+            chest-level props
+        avoid_when:
+          - Standard talking scenes
+        narrative_effects:
+          - Builds suspense and depersonalization
+        source_category: composition.framing.crop
+        post_count: 25855
+        framing_type: deliberate_crop
+        compositional_device: decapitated_framing
+        crop_boundary: below_chin
+        compatible_with:
+          - cropped torso
+          - cowboy shot
+          - weapon focus
+        exclusive_with:
+          - portrait
+          - close-up
+          - headshot
+      - tag: cropped shoulders
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Tightly trims outer shoulders to emphasize neck and head.
+        use_when:
+          - Narrow vertical panel framing for close character beats
+        avoid_when:
+          - Broad athletic poses
+        narrative_effects:
+          - Tightens focal concentration around the head
+        source_category: composition.framing.crop
+        post_count: 6970
+        framing_type: deliberate_crop
+        compositional_device: lateral_shoulder_trim
+        crop_boundary: inner_neck_base
+        compatible_with:
+          - close-up
+          - portrait
+        exclusive_with:
+          - full body
+      - tag: eyes out of frame
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Frames the face from nose or lips downward, deliberately cutting
+          off the eyes.
+        use_when:
+          - Sinister smirks, dark monologues, or hidden weeping
+        avoid_when:
+          - Clear open communication
+        narrative_effects:
+          - Conceals emotion, evoking dark mystery, despair, or villainy
+        source_category: composition.framing.crop
+        post_count: 2914
+        framing_type: deliberate_crop
+        compositional_device: eye_occlusion_crop
+        crop_boundary: below_eyes
+        compatible_with:
+          - mouth focus
+          - close-up
+        exclusive_with:
+          - eye focus
+      - tag: cropped head
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Crops the top of the hair/head while keeping the face in view.
+        use_when:
+          - Extremely intense close-up emphasizing eyes and mouth
+        avoid_when:
+          - Full hairstyle showcase
+        narrative_effects:
+          - Creates immediate, claustrophobic emotional intimacy
+        source_category: composition.framing.crop
+        post_count: 2015
+        framing_type: deliberate_crop
+        compositional_device: top_of_head_trim
+        crop_boundary: forehead_edge
+        compatible_with:
+          - close-up
+          - eye focus
+        exclusive_with:
+          - full body
+      - tag: cropped arms
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Lateral crop cutting off outstretched arms at elbows or forearms.
+        use_when:
+          - Narrow panels where character reaches outward
+        avoid_when:
+          - Complete hand gesture readability
+        narrative_effects:
+          - Focuses energy into the central torso and head
+        source_category: composition.framing.crop
+        post_count: 1872
+        framing_type: deliberate_crop
+        compositional_device: lateral_arm_trim
+        crop_boundary: mid_arm
+        compatible_with:
+          - upper body
+          - portrait
+        exclusive_with:
+          - full body
+      - tag: knees out of frame
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Crops the body above the knee line (similar to cowboy shot).
+        use_when:
+          - Standard medium-long framing for dialogue and stance
+        avoid_when:
+          - Full leg action choreography
+        narrative_effects:
+          - Balances character presence with efficient panel space
+        source_category: composition.framing.crop
+        post_count: 1632
+        framing_type: deliberate_crop
+        compositional_device: knee_boundary_trim
+        crop_boundary: above_knees
+        compatible_with:
+          - cowboy shot
+          - upper body
+        exclusive_with:
+          - feet only
+          - full body
+      - tag: arm out of frame
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: One arm extends outside the panel edge.
+        use_when:
+          - Reaching out to someone off-panel, swinging a weapon, or pointing
+        avoid_when:
+          - Centered self-contained poses
+        narrative_effects:
+          - Connects current panel with off-panel space or neighboring panel
+        source_category: composition.framing.crop
+        post_count: 388
+        framing_type: deliberate_crop
+        compositional_device: single_arm_overflow
+        crop_boundary: lateral_edge
+        compatible_with:
+          - out of frame
+          - motion lines
+        exclusive_with:
+          - framed
+      - tag: cropped arm
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Single arm is partially cropped by the framing edge.
+        use_when:
+          - Dynamic off-center character placement in tight panels
+        avoid_when:
+          - Symmetrical formal poses
+        narrative_effects:
+          - Adds spontaneous, candid framing feel
+        source_category: composition.framing.crop
+        post_count: 279
+        framing_type: deliberate_crop
+        compositional_device: asymmetrical_crop
+        crop_boundary: arm_edge
+        compatible_with:
+          - upper body
+          - portrait
+        exclusive_with:
+          - framed
+      - tag: multiple views
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Displays multiple angles or expressions of the character within
+          a single image.
+        use_when:
+          - Character design model sheets, expressions showcase, or multi-angle study
+        avoid_when:
+          - Standard single continuous timeline comic panel
+        narrative_effects:
+          - Provides comprehensive visual breakdown from several vantage points
+        source_category: composition.framing.arrangement
+        post_count: 232250
+        framing_type: multi_view
+        compositional_device: composite_layout
+        crop_boundary: multi_panel_composite
+        compatible_with:
+          - turnaround
+          - lineup
+          - side-by-side
+        exclusive_with:
+          - scenery
+      - tag: side-by-side
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Two or more characters/elements placed horizontally adjacent
+          across the frame.
+        use_when:
+          - Companions walking together, comparing two rivals, or romantic couples
+        avoid_when:
+          - Solo character focus
+        narrative_effects:
+          - Emphasizes equality, comparison, camaraderie, or direct confrontation
+        source_category: composition.framing.arrangement
+        post_count: 13960
+        framing_type: arrangement
+        compositional_device: horizontal_pairing
+        crop_boundary: dual_character
+        compatible_with:
+          - upper body
+          - full body
+          - facing viewer
+        exclusive_with:
+          - close-up
+      - tag: viewfinder
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Overlays camera viewfinder graphics, crosshairs, battery, or
+          grid markings.
+        use_when:
+          - Sniping target lock, photographing events, or in-camera POV recording
+        avoid_when:
+          - Historical or naturalistic fantasy panels
+        narrative_effects:
+          - Frames the action through an optical lens device
+        source_category: composition.framing.arrangement
+        post_count: 8831
+        framing_type: overlay_interface
+        compositional_device: camera_hud_overlay
+        crop_boundary: viewfinder_mask
+        compatible_with:
+          - crosshair
+          - camera feed
+          - pov
+        exclusive_with:
+          - scenery
+      - tag: lineup
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Characters arranged in a horizontal row across the panel.
+        use_when:
+          - Team introductions, ensemble cast showcases, or police suspect lineups
+        avoid_when:
+          - Intimate single-character moments
+        narrative_effects:
+          - Presents the collective strength, diversity, or unity of a group
+        source_category: composition.framing.arrangement
+        post_count: 5338
+        framing_type: arrangement
+        compositional_device: horizontal_lineup
+        crop_boundary: group_row
+        compatible_with:
+          - full body
+          - size comparison
+          - side-by-side
+          - group picture
+        exclusive_with:
+          - close-up
+          - portrait
+      - tag: group picture
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Posed or dynamic group composition containing multiple characters
+          gathered together.
+        use_when:
+          - Cast celebration photos, team gatherings, or ensemble cast introductions
+        avoid_when:
+          - Single character solo monologue
+        narrative_effects:
+          - Highlights camaraderie, team unity, and shared social connection
+        source_category: composition.framing.arrangement
+        post_count: 4424
+        framing_type: arrangement
+        compositional_device: group_ensemble
+        crop_boundary: group_cluster
+        compatible_with:
+          - family portrait
+          - lineup
+          - side-by-side
+          - wide shot
+        exclusive_with:
+          - close-up
+          - portrait
+      - tag: turnaround
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Character shown from front, side, and back views for complete
+          design reference.
+        use_when:
+          - Costume reference sheets, character design concept pages
+        avoid_when:
+          - Standard narrative story panels
+        narrative_effects:
+          - Shows 360-degree costume and silhouette design
+        source_category: composition.framing.arrangement
+        post_count: 4231
+        framing_type: multi_view
+        compositional_device: rotational_reference
+        crop_boundary: full_body_turnaround
+        compatible_with:
+          - multiple views
+          - full body
+        exclusive_with:
+          - scenery
+      - tag: framed
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Subject is neatly framed within an internal geometric shape,
+          doorway, or picture frame.
+        use_when:
+          - Using natural architecture (arches, windows, gates) to create a frame-within-a-frame
+        avoid_when:
+          - Unconstrained chaotic action
+        narrative_effects:
+          - Directs visual focus and adds structural elegance to panel composition
+        source_category: composition.framing.arrangement
+        post_count: 4140
+        framing_type: internal_frame
+        compositional_device: frame_within_frame
+        crop_boundary: geometric_enclosure
+        compatible_with:
+          - through window
+          - pov doorway
+          - depth of field
+        exclusive_with:
+          - out of frame
+      - tag: column lineup
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Characters arranged in a vertical stack or column formation.
+        use_when:
+          - Tall vertical comic panels or phone-scroll webtoon format
+        avoid_when:
+          - Wide horizontal panorama panels
+        narrative_effects:
+          - Guides reader eye vertically through sequential character tiers
+        source_category: composition.framing.arrangement
+        post_count: 3097
+        framing_type: arrangement
+        compositional_device: vertical_lineup
+        crop_boundary: vertical_stack
+        compatible_with:
+          - vertical comic
+          - lineup
+        exclusive_with:
+          - wide shot
+      - tag: split screen
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Panel is divided into distinct sub-sections showing different
+          characters or locations.
+        use_when:
+          - Phone conversations, simultaneous parallel actions, or rival showdown
+            reactions
+        avoid_when:
+          - Unified single space scene
+        narrative_effects:
+          - Synchronizes separate storylines and contrasts immediate reactions
+        source_category: composition.framing.arrangement
+        post_count: 2585
+        framing_type: sub_panel_split
+        compositional_device: divided_frame
+        crop_boundary: split_border
+        compatible_with:
+          - cut-in
+          - split crop
+          - multiple views
+        exclusive_with:
+          - scenery
+      - tag: negative space
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Composition dominated by empty, open space surrounding a small
+          focal subject.
+        use_when:
+          - Loneliness, melancholy, vast isolation, or dramatic pauses in comic rhythm
+        avoid_when:
+          - Crowded party scenes or dense urban street life
+        narrative_effects:
+          - Evokes silence, emptiness, contemplation, and emotional weight
+        source_category: composition.framing.arrangement
+        post_count: 1535
+        framing_type: compositional_balance
+        compositional_device: empty_space_dominance
+        crop_boundary: expanded_void
+        compatible_with:
+          - wide shot
+          - very wide shot
+          - scenery
+        exclusive_with:
+          - crowded
+          - cramped
+      - tag: surrounded
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Focal subject is encircled on all sides by enemies, crowds, or
+          items.
+        use_when:
+          - Encirclement combat, overwhelming odds, or mobbing
+        avoid_when:
+          - One-on-one solo duels
+        narrative_effects:
+          - Creates extreme peril, entrapment, and desperate resistance
+        source_category: composition.framing.arrangement
+        post_count: 1444
+        framing_type: spatial_staging
+        compositional_device: radial_encirclement
+        crop_boundary: perimeter_flocking
+        compatible_with:
+          - from above
+          - full body
+          - crowded
+        exclusive_with:
+          - negative space
+      - tag: full composition
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Richly packed, fully realized composition utilizing all visual
+          planes (foreground, midground, background).
+        use_when:
+          - Climax splash pages, elaborate cityscapes, or grand party scenes
+        avoid_when:
+          - Simple minimalist dialogue panels
+        narrative_effects:
+          - Delivers high visual density, world immersion, and artistic luxury
+        source_category: composition.framing.arrangement
+        post_count: 784
+        framing_type: compositional_balance
+        compositional_device: full_plane_utilization
+        crop_boundary: edge_to_edge
+        compatible_with:
+          - splash page
+          - full page comic
+          - wide shot
+        exclusive_with:
+          - negative space
+      - tag: cut-in
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Small secondary panel or horizontal eye-strip inserted into the
+          main panel.
+        use_when:
+          - Sudden shock eye-reaction during broad action, special attack trigger
+        avoid_when:
+          - Static single-view compositions
+        narrative_effects:
+          - Punctuate high-speed action with critical emotional or tactical detail
+        source_category: composition.framing.arrangement
+        post_count: 650
+        framing_type: inset_panel
+        compositional_device: cutaway_insert
+        crop_boundary: inset_strip
+        compatible_with:
+          - eye focus
+          - close-up
+          - motion lines
+        exclusive_with:
+          - scenery
+      - tag: split crop
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Character or scene is fractured across separated crop segments.
+        use_when:
+          - Psychological fragmentation, time-skip transitions, or contrasting before/after
+        avoid_when:
+          - Continuous realistic framing
+        narrative_effects:
+          - Creates visual tension and stylized conceptual division
+        source_category: composition.framing.arrangement
+        post_count: 556
+        framing_type: sub_panel_split
+        compositional_device: fragmented_crop
+        crop_boundary: segmented_frame
+        compatible_with:
+          - split screen
+          - multiple views
+        exclusive_with:
+          - full composition
+      - tag: size comparison
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Staging contrasting tiny and gigantic characters/objects side
+          by side.
+        use_when:
+          - Showing colossal monsters compared to humans, height differences in couples
+        avoid_when:
+          - Characters of identical stature
+        narrative_effects:
+          - Clarifies physical scale disparity and power dynamics
+        source_category: composition.framing.arrangement
+        post_count: 425
+        framing_type: spatial_staging
+        compositional_device: scale_contrast
+        crop_boundary: dual_scale
+        compatible_with:
+          - full body
+          - lineup
+          - side-by-side
+        exclusive_with:
+          - close-up
+      - tag: crowded
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Frame is filled with numerous characters, bodies, or dense objects.
+        use_when:
+          - Bustling market streets, packed festival crowds, or chaotic battle mekes
+        avoid_when:
+          - Solitary quiet moments
+        narrative_effects:
+          - Creates sensory overload, vibrant bustling energy, or suffocating overwhelm
+        source_category: composition.framing.arrangement
+        post_count: 366
+        framing_type: density
+        compositional_device: crowd_congestion
+        crop_boundary: dense_packing
+        compatible_with:
+          - wide shot
+          - full body
+          - from above
+        exclusive_with:
+          - negative space
+      - tag: cramped
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Characters squeezed tightly into a restricted narrow spatial
+          container or panel.
+        use_when:
+          - Hiding inside a locker, packed into a crowded elevator, or tiny tent
+        avoid_when:
+          - Grand panoramic expanses
+        narrative_effects:
+          - Evokes claustrophobia, awkward physical proximity, and comic tension
+        source_category: composition.framing.arrangement
+        post_count: 308
+        framing_type: density
+        compositional_device: spatial_confinement
+        crop_boundary: restricted_box
+        compatible_with:
+          - close-up
+          - upper body
+        exclusive_with:
+          - wide shot
+          - negative space
+      - tag: opposing sides
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Two opposing factions or characters staged on opposite left/right
+          sides of the frame.
+        use_when:
+          - Pre-battle standoff, debate showdown, or faction conflict
+        avoid_when:
+          - Friendly unified group scenes
+        narrative_effects:
+          - Visualizes sharp ideological, physical, or romantic tension across a divide
+        source_category: composition.framing.arrangement
+        post_count: 212
+        framing_type: spatial_staging
+        compositional_device: bilateral_opposition
+        crop_boundary: left_right_split
+        compatible_with:
+          - side-by-side
+          - wide shot
+          - full body
+        exclusive_with:
+          - close-up
+      - tag: group profile
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Multiple characters all shown in profile looking in the same
+          or opposite directions.
+        use_when:
+          - Marching armies, heroic squad gazing into battle, or layered profile lineup
+        avoid_when:
+          - Frontal dialogue
+        narrative_effects:
+          - Striking graphic rhythm conveying unified purpose or contrasting ideals
+        source_category: composition.framing.arrangement
+        post_count: 208
+        framing_type: arrangement
+        compositional_device: rhythmic_profile_stack
+        crop_boundary: multi_profile
+        compatible_with:
+          - profile
+          - lineup
+        exclusive_with:
+          - facing viewer
+      - tag: front and back
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Shows one character facing forward and another facing away, or
+          same character front/back.
+        use_when:
+          - Back-to-back combat trust, parting ways, or dual-aspect design sheet
+        avoid_when:
+          - Simple single-direction staging
+        narrative_effects:
+          - Symbolizes mutual reliance, diverging paths, or comprehensive character
+            design
+        source_category: composition.framing.arrangement
+        post_count: 143
+        framing_type: arrangement
+        compositional_device: contrasting_facing
+        crop_boundary: dual_stance
+        compatible_with:
+          - multiple views
+          - full body
+        exclusive_with:
+          - scenery
+      - tag: panorama
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Extra-wide horizontal aspect ratio capturing an uninterrupted
+          sweeping vista.
+        use_when:
+          - Double-page spreads, epic battlefield vistas, or horizon sunset sweeps
+        avoid_when:
+          - Narrow vertical webtoon panels
+        narrative_effects:
+          - Delivers sweeping cinematic grandeur and horizon immersion
+        source_category: composition.framing.arrangement
+        post_count: 136
+        framing_type: aspect_ratio
+        compositional_device: ultrawide_panorama
+        crop_boundary: wide_horizontal_sweep
+        compatible_with:
+          - landscape
+          - wide shot
+          - scenery
+        exclusive_with:
+          - vertical comic
+          - close-up
+      - tag: montage
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Collage of several disparate scenes, memories, or actions blended
+          into one visual field.
+        use_when:
+          - Training montages, passage of time, travel progression, or memory retrospectives
+        avoid_when:
+          - Single real-time moment
+        narrative_effects:
+          - Compresses time, narrative events, and emotional journey into a unified
+            graphic
+        source_category: composition.framing.arrangement
+        post_count: 134
+        framing_type: multi_scene
+        compositional_device: montage_blend
+        crop_boundary: blended_facets
+        compatible_with:
+          - flashback
+          - multiple views
+          - split screen
+        exclusive_with:
+          - scenery
+      - tag: border
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Explicit visual frame or border enclosing the artwork.
+        use_when:
+          - Classic framed comic panel look with clean outer margins
+        avoid_when:
+          - Borderless full-bleed illustrations
+        narrative_effects:
+          - Provides clean containment and traditional comic panel structure
+        source_category: composition.framing.border
+        post_count: 210362
+        framing_type: border_style
+        compositional_device: framed_boundary
+        crop_boundary: bordered_box
+        compatible_with:
+          - comic
+          - 4koma
+          - letterboxed
+        exclusive_with:
+          - borderless panels
+      - tag: white border
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Clean white outer margin separating the image from the page background.
+        use_when:
+          - Standard manga/comic gutter and border formatting
+        avoid_when:
+          - Dark flashback panels requiring black borders
+        narrative_effects:
+          - Classic comic page aesthetic with high contrast against artwork
+        source_category: composition.framing.border
+        post_count: 132430
+        framing_type: border_style
+        compositional_device: white_margin
+        crop_boundary: white_frame
+        compatible_with:
+          - comic
+          - 4koma
+        exclusive_with:
+          - black border
+          - borderless panels
+      - tag: outside border
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Artwork or character elements burst outside the defined panel
+          border into the gutter.
+        use_when:
+          - High-impact action hits, explosive magic, or dramatic foreground figure
+            overlays
+        avoid_when:
+          - Strictly neat formal 4koma panels
+        narrative_effects:
+          - Delivers high-impact kinetic pop and spatial dominance over the page
+        source_category: composition.framing.border
+        post_count: 81674
+        framing_type: border_style
+        compositional_device: gutter_bleed
+        crop_boundary: frame_breaking
+        compatible_with:
+          - out of frame
+          - foreshortening
+          - comic
+        exclusive_with:
+          - framed
+      - tag: letterboxed
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Horizontal black cinematic bars across the top and bottom of
+          the frame.
+        use_when:
+          - Cinematic cutscenes, widescreen dramatic beats, or movie-like pacing
+        avoid_when:
+          - Standard square comic panels
+        narrative_effects:
+          - Imparts distinct cinematic prestige and theatrical widescreen feel
+        source_category: composition.framing.border
+        post_count: 64998
+        framing_type: aspect_framing
+        compositional_device: matte_bars
+        crop_boundary: top_bottom_black_bars
+        compatible_with:
+          - wide shot
+          - dutch angle
+          - depth of field
+        exclusive_with:
+          - pillarboxed
+      - tag: black border
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Black gutter borders surrounding the panel, traditional in manga
+          for flashbacks.
+        use_when:
+          - Flashback memories, tragic past sequences, or grim nightmares
+        avoid_when:
+          - Bright ongoing present-timeline comedy
+        narrative_effects:
+          - Universal manga convention signaling memory, past events, or dark tone
+        source_category: composition.framing.border
+        post_count: 22122
+        framing_type: border_style
+        compositional_device: black_matte
+        crop_boundary: black_frame
+        compatible_with:
+          - flashback
+          - sepia
+          - comic
+        exclusive_with:
+          - white border
+      - tag: pillarboxed
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Vertical black bars placed on the left and right sides of the
+          image.
+        use_when:
+          - Simulating 4:3 retro CRT monitor/TV display in a widescreen frame
+        avoid_when:
+          - Wide panoramic vistas
+        narrative_effects:
+          - Evokes retro broadcasting, vintage gaming, or narrow focus
+        source_category: composition.framing.border
+        post_count: 7922
+        framing_type: aspect_framing
+        compositional_device: side_matte_bars
+        crop_boundary: left_right_black_bars
+        compatible_with:
+          - scanlines
+          - film grain
+        exclusive_with:
+          - letterboxed
+          - panorama
+      - tag: inset border
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Decorative or nested border set inside the outer panel edges.
+        use_when:
+          - Antique book framing, ornate fantasy scrolls, or card frames
+        avoid_when:
+          - Clean modern minimalist comic pages
+        narrative_effects:
+          - Adds decorative craftsmanship and stylistic elegance
+        source_category: composition.framing.border
+        post_count: 3878
+        framing_type: border_style
+        compositional_device: nested_border
+        crop_boundary: inner_frame
+        compatible_with:
+          - framed
+          - portrait
+        exclusive_with:
+          - borderless panels
+      - tag: round border
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Circular or oval shaped panel frame.
+        use_when:
+          - Peephole views, telescope/binocular scopes, cameo memories, or chibi vignettes
+        avoid_when:
+          - Standard rectangular grid layout
+        narrative_effects:
+          - Softens panel transition and evokes optical lens devices or intimate memories
+        source_category: composition.framing.border
+        post_count: 1157
+        framing_type: border_style
+        compositional_device: circular_mask
+        crop_boundary: round_mask
+        compatible_with:
+          - pov peephole
+          - fisheye
+          - chibi inset
+        exclusive_with:
+          - letterboxed
+      - tag: chibi inset
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: Small secondary inset bubble showing a miniature super-deformed
+          (chibi) reaction.
+        use_when:
+          - Comedic commentary, exaggerated embarrassment, or explanatory mini-guides
+        avoid_when:
+          - Deadly serious grimdark climaxes
+        narrative_effects:
+          - Adds comedic levity, cute contrast, and playful authorial commentary
+        source_category: composition.framing.inset
+        post_count: 26246
+        framing_type: inset_vignette
+        compositional_device: chibi_sub_bubble
+        crop_boundary: inset_circle
+        compatible_with:
+          - comic
+          - 4koma
+          - upper body
+        exclusive_with:
+          - scenery
+      - tag: reference inset
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Inset box displaying a costume detail, weapon blueprint, or reference
+          graphic.
+        use_when:
+          - Explaining intricate mechanics, weapon details, or accessory zoom-ins
+        avoid_when:
+          - Fast emotional dialogue
+        narrative_effects:
+          - Provides technical exposition and detailed item context
+        source_category: composition.framing.inset
+        post_count: 10777
+        framing_type: inset_vignette
+        compositional_device: technical_inset
+        crop_boundary: inset_box
+        compatible_with:
+          - full body
+          - weapon focus
+        exclusive_with:
+          - scenery
+      - tag: photo inset
+        tier: specialized
+        reliability: high
+        visual_priority: 4
+        description: Inset graphic styled as a printed photograph pinned or floating
+          over the panel.
+        use_when:
+          - Remembering a past event, displaying evidence photo, or memento
+        avoid_when:
+          - Pure real-time action
+        narrative_effects:
+          - Grounds narrative memory in a physical photographic artifact
+        source_category: composition.framing.inset
+        post_count: 4026
+        framing_type: inset_vignette
+        compositional_device: polaroid_inset
+        crop_boundary: photo_frame
+        compatible_with:
+          - family portrait
+          - flashback
+          - framed
+        exclusive_with:
+          - scenery
+      - tag: screenshot inset
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Inset graphic showing a digital screen capture or video frame.
+        use_when:
+          - Showing video call participant, surveillance camera footage, or gaming
+            UI
+        avoid_when:
+          - Pre-modern fantasy without technology
+        narrative_effects:
+          - Brings technological mediation directly into the scene
+        source_category: composition.framing.inset
+        post_count: 3739
+        framing_type: inset_vignette
+        compositional_device: digital_screen_inset
+        crop_boundary: screen_box
+        compatible_with:
+          - camera feed
+          - scanlines
+        exclusive_with:
+          - scenery
+      - tag: projected inset
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Holographic projection or ethereal thought bubble floating over
+          the panel.
+        use_when:
+          - Sci-fi holographic briefings, psychic projections, or distant caller holograms
+        avoid_when:
+          - Grounded realistic scenes
+        narrative_effects:
+          - Visualizes futuristic telecommunication or ethereal thought transmission
+        source_category: composition.framing.inset
+        post_count: 3099
+        framing_type: inset_vignette
+        compositional_device: hologram_inset
+        crop_boundary: ethereal_inset
+        compatible_with:
+          - bloom
+          - upper body
+        exclusive_with:
+          - scenery
+      - tag: inset
+        tier: core
+        reliability: high
+        visual_priority: 4
+        description: General secondary sub-panel inset nested inside the main image
+          area.
+        use_when:
+          - Simultaneous secondary reaction or item detail shown alongside main action
+        avoid_when:
+          - Single uncluttered minimalist panels
+        narrative_effects:
+          - Enables multi-track visual storytelling within a single shot budget
+        source_category: composition.framing.inset
+        post_count: 2859
+        framing_type: inset_vignette
+        compositional_device: generic_sub_frame
+        crop_boundary: nested_box
+        compatible_with:
+          - comic
+          - upper body
+          - close-up
+        exclusive_with:
+          - scenery
+      - tag: doodle inset
+        tier: specialized
+        reliability: medium
+        visual_priority: 4
+        description: Casual chibi sketch or stick figure doodle added in the margins
+          or corner.
+        use_when:
+          - Humorous character thoughts, simplified diagrams, or playful author commentary
+        avoid_when:
+          - Solemn tragic moments
+        narrative_effects:
+          - Provides humorous meta-commentary and comedic contrast
+        source_category: production.format.general
+        post_count: 1758
+        framing_type: inset_vignette
+        compositional_device: sketch_doodle_inset
+        crop_boundary: sketch_bubble
+        compatible_with:
+          - 4koma
+          - comic
+        exclusive_with:
+          - scenery
+  focus:
+    scope: panel
+    max_selected: 2
+    description: Subject/element focal target and optical depth-of-field blur cues.
+    tags:
+      - tag: eye focus
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Camera focus placed explicitly on the character's eyes and gaze.
+        use_when:
+          - Realization, sudden shock, hypnotic trance, tears, or piercing glare
+        avoid_when:
+          - Broad physical combat choreography
+        narrative_effects:
+          - Commands reader attention to the psychological soul and gaze of the subject
+        source_category: composition.framing.focus
+        post_count: 3689
+        focus_target: eyes
+        depth_cue: shallow_eye_plane
+        focal_plane: facial_front
+        compatible_with:
+          - close-up
+          - portrait
+          - depth of field
+        exclusive_with:
+          - eyes out of frame
+          - faceless
+          - feet only
+      - tag: hand focus
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Focal emphasis on hands performing an action, holding an item,
+          or gesturing.
+        use_when:
+          - Holding hands, grasping a weapon, writing a letter, or magic casting gestures
+        avoid_when:
+          - Scenes focused on subtle facial expressions
+        narrative_effects:
+          - Emphasizes tactile agency, decision-making, and physical connection
+        source_category: composition.framing.focus
+        post_count: 2000
+        focus_target: hands
+        depth_cue: hand_plane
+        focal_plane: gesture_plane
+        compatible_with:
+          - pov hands
+          - depth of field
+          - foreshortening
+        exclusive_with:
+          - head only
+          - portrait
+      - tag: weapon focus
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Focus sharply targeted on a sword, gun, staff, or combat weapon.
+        use_when:
+          - Weapon draw reveals, inspecting weapon craftsmanship, or aiming down the
+            barrel
+        avoid_when:
+          - Peaceful slice-of-life tea scenes
+        narrative_effects:
+          - Heightens combat readiness, deadly threat, and martial power
+        source_category: composition.framing.focus
+        post_count: 1166
+        focus_target: weapon
+        depth_cue: weapon_plane
+        focal_plane: object_foreground
+        compatible_with:
+          - foreshortening
+          - cowboy shot
+          - depth of field
+        exclusive_with:
+          - scenery
+      - tag: object focus
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Focus placed on a specific inanimate prop or key narrative item.
+        use_when:
+          - Plot-critical McGuffins (amulet, key, mysterious letter, potion bottle)
+        avoid_when:
+          - Character-centric dialogues with no props
+        narrative_effects:
+          - Highlights narrative clues and symbolic significance of items
+        source_category: composition.framing.focus
+        post_count: 2457
+        focus_target: prop
+        depth_cue: prop_plane
+        focal_plane: foreground_object
+        compatible_with:
+          - still life
+          - depth of field
+          - hand focus
+        exclusive_with:
+          - scenery
+      - tag: vehicle focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Composition centered on a car, motorcycle, aircraft, or ship.
+        use_when:
+          - High-speed chase scenes, vehicle reveals, or travel transport shots
+        avoid_when:
+          - Indoor room dialogue
+        narrative_effects:
+          - Emphasizes speed, mechanical power, and travel progression
+        source_category: composition.framing.focus
+        post_count: 14366
+        focus_target: vehicle
+        depth_cue: vehicle_hull
+        focal_plane: midground_vehicle
+        compatible_with:
+          - motion blur
+          - speed lines
+          - wide shot
+        exclusive_with:
+          - close-up
+      - tag: mecha focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Composition focusing on giant robots, armored suits, or cybernetic
+          machinery.
+        use_when:
+          - Mecha launch sequences, giant robot battles, or cockpit boarding
+        avoid_when:
+          - Historical fantasy without machinery
+        narrative_effects:
+          - Highlights technological power, colossal scale, and mechanical complexity
+        source_category: composition.framing.focus
+        post_count: 8232
+        focus_target: mecha
+        depth_cue: mecha_chassis
+        focal_plane: colossal_foreground
+        compatible_with:
+          - from below
+          - wide shot
+          - foreshortening
+        exclusive_with:
+          - portrait
+      - tag: animal focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Framing focused primarily on an animal, pet, or mascot creature.
+        use_when:
+          - Mascot reactions, companion animals, horses in travel, or wild beast encounters
+        avoid_when:
+          - Human-only drama scenes
+        narrative_effects:
+          - Brings charm, companion warmth, or animal instinct into the scene
+        source_category: composition.framing.focus
+        post_count: 39583
+        focus_target: animal
+        depth_cue: animal_subject
+        focal_plane: creature_plane
+        compatible_with:
+          - upper body
+          - close-up
+          - depth of field
+        exclusive_with:
+          - scenery
+      - tag: food focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Appetizing focus on prepared meals, pastries, snacks, or beverages.
+        use_when:
+          - Cooking manga feast reveals, cafe dates, or character tasting moments
+        avoid_when:
+          - Combat battlefields
+        narrative_effects:
+          - Evokes delicious culinary appeal, sensory pleasure, and hospitality
+        source_category: composition.framing.focus
+        post_count: 14477
+        focus_target: food
+        depth_cue: culinary_plane
+        focal_plane: tabletop_foreground
+        compatible_with:
+          - depth of field
+          - still life
+          - close-up
+        exclusive_with:
+          - scenery
+      - tag: sky focus
+        tier: core
+        reliability: high
+        visual_priority: 1
+        description: Composition dominated by the expanse of clouds, stars, sunset,
+          or celestial sky.
+        use_when:
+          - Looking up at sky in contemplation, weather transitions, or shooting star
+            wishes
+        avoid_when:
+          - Underground or indoor rooms
+        narrative_effects:
+          - Evokes freedom, yearning, boundless dreams, and cosmic scale
+        source_category: composition.framing.focus
+        post_count: 1028
+        focus_target: sky
+        depth_cue: infinite_horizon
+        focal_plane: celestial_plane
+        compatible_with:
+          - from below
+          - landscape
+          - scenery
+          - wide shot
+        exclusive_with:
+          - under table
+          - refrigerator interior
+      - tag: plant focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Focus placed on foliage, branches, vines, or indoor houseplants.
+        use_when:
+          - Botanical garden scenes, herbalism, or framing through leafy vines
+        avoid_when:
+          - Barren sci-fi metal corridors
+        narrative_effects:
+          - Adds lush organic atmosphere and natural tranquility
+        source_category: composition.framing.focus
+        post_count: 771
+        focus_target: flora
+        depth_cue: botanical_plane
+        focal_plane: vegetation_layer
+        compatible_with:
+          - flower focus
+          - depth of field
+          - scenery
+        exclusive_with:
+          - scenery
+      - tag: flower focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Tightly focused framing on blossoms, bouquets, or flower petals.
+        use_when:
+          - Romantic flower gifting, funeral tributes, or symbolic blossom motifs
+        avoid_when:
+          - Gritty industrial sequences
+        narrative_effects:
+          - Injects romantic poetry, transience, elegance, or bittersweet symbolism
+        source_category: composition.framing.focus
+        post_count: 853
+        focus_target: flowers
+        depth_cue: macro_blossom
+        focal_plane: petal_plane
+        compatible_with:
+          - plant focus
+          - depth of field
+          - portrait
+          - bokeh
+        exclusive_with:
+          - scenery
+      - tag: hair focus
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Framing emphasizing flowing hair strands, elaborate hairstyles,
+          or hair accessories.
+        use_when:
+          - Hair brushing, wind blowing hair across the frame, or hair styling beats
+        avoid_when:
+          - Bald characters or full helmet armor
+        narrative_effects:
+          - Highlights elegance, sensory tactility, and wind dynamics
+        source_category: composition.framing.focus
+        post_count: 711
+        focus_target: hair
+        depth_cue: strand_plane
+        focal_plane: head_silhouette
+        compatible_with:
+          - portrait
+          - close-up
+          - from behind
+        exclusive_with:
+          - feet only
+      - tag: foot focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Camera focused sharply on bare feet or socks/foot placement on
+          the ground.
+        use_when:
+          - Stepping out of bed, dipping toes into water, or martial arts footing
+        avoid_when:
+          - Standard conversational dialogue
+        narrative_effects:
+          - Draws attention to ground contact, barefoot vulnerability, or martial
+            footing
+        source_category: composition.framing.focus
+        post_count: 33209
+        focus_target: feet
+        depth_cue: ground_plane
+        focal_plane: floor_contact
+        compatible_with:
+          - feet only
+          - lower body
+          - from above
+        exclusive_with:
+          - portrait
+          - headshot
+      - tag: leg focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Focus placed on character's legs in motion or standing pose.
+        use_when:
+          - Kicking action, walking stride, or showing stockings/leggings
+        avoid_when:
+          - Head-and-shoulder conversational scenes
+        narrative_effects:
+          - Emphasizes leg athletics, locomotion, and stance
+        source_category: composition.framing.focus
+        post_count: 584
+        focus_target: legs
+        depth_cue: limb_plane
+        focal_plane: lower_body
+        compatible_with:
+          - lower body
+          - cowboy shot
+          - motion lines
+        exclusive_with:
+          - portrait
+          - headshot
+      - tag: mouth focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Tightly focused framing on lips, smile, biting, or speaking mouth.
+        use_when:
+          - Whispering secrets, bitter smirks, biting lips in anxiety, or dramatic
+            declarations
+        avoid_when:
+          - Broad overview action shots
+        narrative_effects:
+          - Amplifies spoken words, whispered intimacy, or subtle sneers
+        source_category: composition.framing.focus
+        post_count: 350
+        focus_target: mouth
+        depth_cue: lip_plane
+        focal_plane: lower_face
+        compatible_with:
+          - close-up
+          - eyes out of frame
+          - depth of field
+        exclusive_with:
+          - eye focus
+          - feet only
+      - tag: ear focus
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Focus placed on animal ears, elf ears, ear piercings, or earrings.
+        use_when:
+          - Twitching animal ear reactions, admiring earrings, or elf ear gestures
+        avoid_when:
+          - Standard non-ear-related scenes
+        narrative_effects:
+          - Highlights fantasy ear traits or delicate jewelry details
+        source_category: composition.framing.focus
+        post_count: 154
+        focus_target: ears
+        depth_cue: ear_plane
+        focal_plane: lateral_head
+        compatible_with:
+          - portrait
+          - close-up
+          - profile
+        exclusive_with:
+          - feet only
+      - tag: cloud focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Focus centered on towering cumulonimbus, fluffy clouds, or storm
+          fronts.
+        use_when:
+          - Summer anime nostalgia (thunderheads), weather shifts, or sky contemplation
+        avoid_when:
+          - Indoor scenes
+        narrative_effects:
+          - Evokes summer nostalgia, impending storms, or quiet daydreaming
+        source_category: composition.framing.focus
+        post_count: 373
+        focus_target: clouds
+        depth_cue: atmospheric_cloud_layer
+        focal_plane: distant_sky
+        compatible_with:
+          - sky focus
+          - scenery
+          - landscape
+        exclusive_with:
+          - under table
+          - refrigerator interior
+      - tag: book focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Focus centered on an open grimoire, novel, library volume, or
+          diary.
+        use_when:
+          - Library research, studying ancient spells, or reading love letters
+        avoid_when:
+          - High-speed vehicle chases
+        narrative_effects:
+          - Highlights intellectual study, arcane discovery, and quiet scholarship
+        source_category: composition.framing.focus
+        post_count: 379
+        focus_target: book
+        depth_cue: page_plane
+        focal_plane: reading_foreground
+        compatible_with:
+          - object focus
+          - still life
+          - depth of field
+        exclusive_with:
+          - scenery
+      - tag: footwear focus
+        tier: specialized
+        reliability: medium
+        visual_priority: 1
+        description: Focus on shoes, boots, high heels, or specialized footwear.
+        use_when:
+          - Lacing boots before battle, admiring new shoes, or heel clicking strides
+        avoid_when:
+          - Barefoot characters or close portraits
+        narrative_effects:
+          - Emphasizes sartorial style, martial readiness, and walking stride
+        source_category: composition.framing.focus
+        post_count: 765
+        focus_target: footwear
+        depth_cue: shoe_plane
+        focal_plane: floor_contact
+        compatible_with:
+          - feet only
+          - lower body
+          - foot focus
+        exclusive_with:
+          - portrait
+          - headshot
+      - tag: reflection focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Focus sharply dialed onto a reflection in a puddle, mirror, glass,
+          or blade.
+        use_when:
+          - Seeing a hidden assassin in a puddle, checking reflection in a sword blade
+        avoid_when:
+          - Direct matte non-reflective environments
+        narrative_effects:
+          - Adds poetic indirect observation and layered psychological depth
+        source_category: composition.framing.focus
+        post_count: 2442
+        focus_target: reflection
+        depth_cue: reflected_virtual_plane
+        focal_plane: specular_surface
+        compatible_with:
+          - reflection
+          - depth of field
+          - through window
+        exclusive_with:
+          - scenery
+      - tag: text focus
+        tier: specialized
+        reliability: high
+        visual_priority: 1
+        description: Focus sharpened onto written words, signs, smartphone texts,
+          or documents.
+        use_when:
+          - Reading shocking news headlines, text message reveals, or warning signs
+        avoid_when:
+          - Textless pure visual action
+        narrative_effects:
+          - Delivers direct written narrative information directly to reader
+        source_category: production.format.general
+        post_count: 18558
+        focus_target: text
+        depth_cue: typography_plane
+        focal_plane: document_foreground
+        compatible_with:
+          - book focus
+          - viewer holding phone
+          - depth of field
+        exclusive_with:
+          - scenery
+      - tag: blurry background
+        tier: core
+        reliability: high
+        visual_priority: 3
+        description: Background is rendered soft and out-of-focus, isolating sharp
+          foreground subject.
+        use_when:
+          - Separating character from cluttered environments, emphasizing solo monologue
+        avoid_when:
+          - Detailed environment establishing shots where background context is vital
+        narrative_effects:
+          - Directs absolute visual focus onto the character and creates photographic
+            depth
+        source_category: composition.visual_effect.effect.blur
+        post_count: 167710
+        focus_target: foreground_subject
+        depth_cue: background_defocus
+        focal_plane: shallow_foreground
+        compatible_with:
+          - portrait
+          - upper body
+          - depth of field
+          - bokeh
+        exclusive_with:
+          - scenery
+          - landscape
+          - very wide shot
+      - tag: depth of field
+        tier: core
+        reliability: high
+        visual_priority: 3
+        description: Cinematic shallow depth of field with distinct sharp focal plane
+          and smooth defocus gradient.
+        use_when:
+          - Cinematic storytelling panels, emphasizing spatial layering and photography
+            aesthetic
+        avoid_when:
+          - Flat 2D graphic comic styles or isometric maps
+        narrative_effects:
+          - Imparts a high-end cinematic lens aesthetic and realistic optical depth
+        source_category: composition.visual_effect.effect.blur
+        post_count: 118498
+        focus_target: focal_subject
+        depth_cue: optical_depth_of_field
+        focal_plane: variable_plane
+        compatible_with:
+          - blurry background
+          - blurry foreground
+          - portrait
+          - close-up
+        exclusive_with:
+          - isometric
+      - tag: blurry foreground
+        tier: core
+        reliability: high
+        visual_priority: 3
+        description: Foreground objects (leaves, shoulders, frames) are out-of-focus
+          in front of the sharp subject.
+        use_when:
+          - Over-the-shoulder framing, peeking through foliage, or layered depth staging
+        avoid_when:
+          - Flat unlayered simple compositions
+        narrative_effects:
+          - Enhances three-dimensional depth and voyeuristic perspective
+        source_category: composition.visual_effect.effect.blur
+        post_count: 37898
+        focus_target: midground_subject
+        depth_cue: foreground_defocus
+        focal_plane: midground
+        compatible_with:
+          - over shoulder
+          - behind tree
+          - behind curtains
+          - depth of field
+        exclusive_with:
+          - scenery
+      - tag: bokeh
+        tier: core
+        reliability: high
+        visual_priority: 3
+        description: Aesthetic circular or polygonal luminous blur discs in the out-of-focus
+          background.
+        use_when:
+          - Night city lights, festive illuminations, romantic confessions, or magical
+            sparkle
+        avoid_when:
+          - Harsh flat daylight scenes without point light sources
+        narrative_effects:
+          - Infuses panels with romantic warmth, glamour, and aesthetic photographic
+            beauty
+        source_category: composition.visual_effect.effect.blur
+        post_count: 9885
+        focus_target: point_lights
+        depth_cue: specular_bokeh_blur
+        focal_plane: shallow_foreground
+        compatible_with:
+          - blurry background
+          - depth of field
+          - portrait
+          - sparkle
+        exclusive_with:
+          - scenery
+          - isometric
+      - tag: back focus
+        tier: specialized
+        reliability: medium
+        visual_priority: 3
+        description: Focus is locked onto the background elements while foreground
+          character remains out-of-focus.
+        use_when:
+          - Focusing on someone arriving in the doorway while foreground character
+            is blurred
+        avoid_when:
+          - Standard foreground character dialogue
+        narrative_effects:
+          - Shifts dramatic priority to an impending arrival or background development
+        source_category: composition.visual_effect.effect.general
+        post_count: 2474
+        focus_target: background_element
+        depth_cue: foreground_defocus_shift
+        focal_plane: deep_background
+        compatible_with:
+          - blurry foreground
+          - depth of field
+          - wide shot
+        exclusive_with:
+          - close-up
+          - portrait
+      - tag: blurry edges
+        tier: specialized
+        reliability: medium
+        visual_priority: 3
+        description: Soft optical blur radiating around the outer perimeter of the
+          frame.
+        use_when:
+          - Dreamy recollections, fainting/dizziness spells, or gentle nostalgia
+        avoid_when:
+          - Crisp technical diagrams
+        narrative_effects:
+          - Evokes gentle nostalgia, disorientation, or soft romantic atmosphere
+        source_category: composition.visual_effect.effect.blur
+        post_count: 545
+        focus_target: center_focal_point
+        depth_cue: peripheral_defocus
+        focal_plane: central_plane
+        compatible_with:
+          - vignetting
+          - soft focus
+          - flashback
+        exclusive_with:
+          - isometric
+      - tag: soft focus
+        tier: specialized
+        reliability: high
+        visual_priority: 3
+        description: Gentle, glowing spherical lens diffusion softening all sharp
+          edges across the image.
+        use_when:
+          - Heavenly visions, romantic daydreams, fairy tale memories, or glamor shots
+        avoid_when:
+          - Gritty high-contrast tactical action
+        narrative_effects:
+          - Wraps the scene in ethereal beauty, tender romanticism, or nostalgic warmth
+        source_category: composition.visual_effect.effect.blur
+        post_count: 267
+        focus_target: overall_scene
+        depth_cue: glow_diffusion
+        focal_plane: diffuse_field
+        compatible_with:
+          - portrait
+          - bloom
+          - sparkle
+        exclusive_with:
+          - scanlines
+          - motion lines
+  camera_effect:
+    scope: panel
+    max_selected: 2
+    description: Kinetic shutter motion lines, optical flares, chromatic artifacts,
+      and temporal visual styles.
+    tags:
+      - tag: motion lines
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Dynamic speed streaks indicating trajectory and rapid movement.
+        use_when:
+          - Dashing, punching, leaping, dodging, or high-speed comic action
+        avoid_when:
+          - Completely stationary quiet dialogue
+        narrative_effects:
+          - Injects kinetic energy, velocity, and comic action excitement
+        source_category: composition.visual_effect.effect.line_effect
+        post_count: 98485
+        effect_type: kinetic_drawing
+        motion_dynamics: linear_velocity
+        shutter_style: manga_speed_lines
+        compatible_with:
+          - foreshortening
+          - dutch angle
+          - full body
+          - speed lines
+        exclusive_with:
+          - still life
+      - tag: notice lines
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Radial emphasis lines directing reader gaze toward a specific
+          startling point.
+        use_when:
+          - Sudden shocking realization, spotting an intruder, or exclamation beats
+        avoid_when:
+          - Subtle quiet background scenes
+        narrative_effects:
+          - Punctuate dramatic realization, shock, and sudden awareness
+        source_category: composition.visual_effect.effect.line_effect
+        post_count: 44376
+        effect_type: attention_guidance
+        motion_dynamics: radial_shock
+        shutter_style: manga_focus_lines
+        compatible_with:
+          - emphasis lines
+          - close-up
+          - portrait
+          - cut-in
+        exclusive_with:
+          - scenery
+      - tag: emphasis lines
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Dense convergent speed lines radiating inward to highlight a
+          central subject.
+        use_when:
+          - High-impact climactic punch, epic power declaration, or comedic shock
+        avoid_when:
+          - Calm conversation
+        narrative_effects:
+          - Magnifies dramatic weight and commands explosive visual attention
+        source_category: composition.visual_effect.effect.line_effect
+        post_count: 42155
+        effect_type: attention_guidance
+        motion_dynamics: convergent_radiance
+        shutter_style: manga_sunburst_lines
+        compatible_with:
+          - notice lines
+          - close-up
+          - facing viewer
+        exclusive_with:
+          - scenery
+      - tag: motion blur
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Directional photographic optical smear of fast-moving subjects
+          or panning camera.
+        use_when:
+          - High-speed chases, evasive flips, sword slashes, or camera whip pans
+        avoid_when:
+          - Static portraits where crisp facial clarity is desired
+        narrative_effects:
+          - Imparts physical velocity, realistic kinetic momentum, and cinematic tempo
+        source_category: composition.visual_effect.effect.blur
+        post_count: 31461
+        effect_type: optical_shutter
+        motion_dynamics: directional_blur
+        shutter_style: slow_shutter_streak
+        compatible_with:
+          - motion lines
+          - speed lines
+          - dutch angle
+        exclusive_with:
+          - still life
+      - tag: zoom layer
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Radial zoom blur streaks creating an intense snap-zoom effect
+          toward the center.
+        use_when:
+          - Dramatic snap-zoom on someone's shocked face or critical incoming threat
+        avoid_when:
+          - Gentle continuous panning
+        narrative_effects:
+          - Simulates an explosive optical crash-zoom, amplifying immediate shock
+        source_category: composition.visual_effect.effect.line_effect
+        post_count: 32486
+        effect_type: lens_movement
+        motion_dynamics: crash_zoom
+        shutter_style: radial_zoom_streak
+        compatible_with:
+          - close-up
+          - notice lines
+          - facing viewer
+        exclusive_with:
+          - scenery
+      - tag: speed lines
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Dense parallel comic speed lines spanning the background plane.
+        use_when:
+          - Sprinting down a hallway, vehicles accelerating, or rushing forward
+        avoid_when:
+          - Stationary peaceful moments
+        narrative_effects:
+          - Replaces background scenery with raw kinetic momentum
+        source_category: composition.visual_effect.effect.line_effect
+        post_count: 12838
+        effect_type: kinetic_drawing
+        motion_dynamics: parallel_velocity
+        shutter_style: parallel_speed_lines
+        compatible_with:
+          - motion lines
+          - upper body
+          - full body
+        exclusive_with:
+          - still life
+      - tag: screen zoom
+        tier: specialized
+        reliability: medium
+        visual_priority: 5
+        description: Digital zoom crop simulating a user zooming in on a digital screen
+          or camera feed.
+        use_when:
+          - Investigating surveillance photos, magnifying clue details on phone
+        avoid_when:
+          - Non-digital historical scenes
+        narrative_effects:
+          - Emphasizes forensic analysis and targeted digital magnification
+        source_category: composition.visual_effect.effect.general
+        post_count: 303
+        effect_type: digital_optical
+        motion_dynamics: digital_magnification
+        shutter_style: digital_crop_step
+        compatible_with:
+          - camera feed
+          - close-up
+          - viewfinder
+        exclusive_with:
+          - scenery
+      - tag: zooming in
+        tier: specialized
+        reliability: medium
+        visual_priority: 5
+        description: Dynamic in-camera forward zoom motion moving closer to the subject.
+        use_when:
+          - Tightening focus during an emotional revelation or approaching danger
+        avoid_when:
+          - Static wide establishing scenes
+        narrative_effects:
+          - Increases emotional tension by pulling reader closer
+        source_category: composition.visual_effect.effect.general
+        post_count: 483
+        effect_type: lens_movement
+        motion_dynamics: forward_zoom
+        shutter_style: forward_optical_zoom
+        compatible_with:
+          - zoom layer
+          - close-up
+        exclusive_with:
+          - zooming out
+      - tag: zooming out
+        tier: specialized
+        reliability: medium
+        visual_priority: 5
+        description: Dynamic backward pull-back camera motion revealing surrounding
+          context.
+        use_when:
+          - Pulling back to reveal a character is actually surrounded or in vast wilderness
+        avoid_when:
+          - Tight isolated close-ups
+        narrative_effects:
+          - Reveals broader spatial reality, creating surprise or sense of isolation
+        source_category: composition.framing.arrangement
+        post_count: 124
+        effect_type: lens_movement
+        motion_dynamics: backward_zoom
+        shutter_style: pull_back_optical_zoom
+        compatible_with:
+          - wide shot
+          - surrounded
+          - negative space
+        exclusive_with:
+          - zooming in
+      - tag: scanlines
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Horizontal phosphor raster scan lines simulating a CRT monitor,
+          television, or digital HUD screen.
+        use_when:
+          - CCTV surveillance footage, retro gaming displays, sci-fi HUD viewfinders
+        avoid_when:
+          - Pristine historical fantasy art
+        narrative_effects:
+          - Renders the image through an authentic electronic screen texture
+        source_category: composition.visual_effect.effect.line_effect
+        post_count: 916
+        effect_type: electronic_raster
+        motion_dynamics: raster_lines
+        shutter_style: crt_scanline_grid
+        compatible_with:
+          - camera feed
+          - fixed-point camera
+          - viewfinder
+        exclusive_with:
+          - soft focus
+          - haze
+          - refraction
+      - tag: lens flare
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Optical light scattering and polygonal ghost artifacts caused
+          by direct bright light hitting lens.
+        use_when:
+          - Sunny outdoor vistas, dramatic stage lights, explosion flashes, or heroic
+            backlit entrances
+        avoid_when:
+          - Dark dim underground dungeons with no intense point light
+        narrative_effects:
+          - Adds cinematic realism, solar brilliance, and heroic photographic flair
+        source_category: composition.visual_effect.effect.glow_light
+        post_count: 45787
+        effect_type: optical_artifact
+        motion_dynamics: static_specular
+        shutter_style: optical_glare
+        compatible_with:
+          - bloom
+          - glint
+          - portrait
+          - wide shot
+        exclusive_with:
+          - night vision
+      - tag: glint
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Sharp point-light starburst reflection off a tooth, blade edge,
+          glasses, or eye.
+        use_when:
+          - Smirking confident grin, blade glinting before strike, glasses pushing
+            flash
+        avoid_when:
+          - Dull diffuse non-reflective surfaces
+        narrative_effects:
+          - Punctuate sharp wit, deadly weapon danger, or anime glasses anime trope
+        source_category: composition.visual_effect.effect.glow_light
+        post_count: 34072
+        effect_type: specular_sparkle
+        motion_dynamics: punctual_flash
+        shutter_style: cross_starburst
+        compatible_with:
+          - close-up
+          - weapon focus
+          - eye focus
+        exclusive_with:
+          - scenery
+      - tag: sparkle
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Luminous shimmering glitters, radiant stars, or magical sparkles
+          floating around the subject.
+        use_when:
+          - Shoujo romantic introductions, glamorous appearances, or magical awakenings
+        avoid_when:
+          - Gritty grimdark battles
+        narrative_effects:
+          - Adds glamour, charm, wonder, and romantic radiance
+        source_category: composition.visual_effect.effect.glow_light
+        post_count: 201142
+        effect_type: specular_sparkle
+        motion_dynamics: shimmering_particles
+        shutter_style: glitter_specular
+        compatible_with:
+          - bloom
+          - bokeh
+          - portrait
+          - diffraction spikes
+        exclusive_with:
+          - night vision
+      - tag: sunburst
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Blinding sun flare bursting from behind a character's silhouette
+          or horizon.
+        use_when:
+          - Dawn of a new day, heroic backlit arrival, or sunrise climax
+        avoid_when:
+          - Night indoor scenes
+        narrative_effects:
+          - Imparts breathtaking awe, triumph, and radiant dawn majesty
+        source_category: composition.visual_effect.effect.glow_light
+        post_count: 4551
+        effect_type: solar_flare
+        motion_dynamics: radiant_rays
+        shutter_style: solar_aperture_burst
+        compatible_with:
+          - lens flare
+          - wide shot
+          - from below
+        exclusive_with:
+          - night vision
+      - tag: light trail
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Long-exposure luminous streaks left by fast-moving energy, weapons,
+          or vehicles.
+        use_when:
+          - Energy blade swings, magic projectile trajectories, or night traffic speed
+            streaks
+        avoid_when:
+          - Static quiet dialogues
+        narrative_effects:
+          - Traces kinetic motion with brilliant luminous velocity
+        source_category: composition.visual_effect.effect.glow_light
+        post_count: 5311
+        effect_type: shutter_persistence
+        motion_dynamics: long_exposure_trail
+        shutter_style: light_painting_streak
+        compatible_with:
+          - motion blur
+          - speed lines
+          - time lapse
+        exclusive_with:
+          - still life
+      - tag: reflection
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Specular optical reflection in water, mirrors, polished floors,
+          or glass surfaces.
+        use_when:
+          - Mirror scenes, rainy asphalt reflections, water surface reflections, or
+            dual identity motifs
+        avoid_when:
+          - Matte non-reflective environments
+        narrative_effects:
+          - Doubles visual presence and adds aesthetic spatial reflection
+        source_category: composition.visual_effect.effect.reflection
+        post_count: 48354
+        effect_type: specular_reflection
+        motion_dynamics: mirror_surface
+        shutter_style: optical_specularity
+        compatible_with:
+          - reflection focus
+          - through window
+          - mirror selfie
+          - against mirror
+        exclusive_with:
+          - scenery
+      - tag: sepia
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Warm monochromatic reddish-brown tone evoking antique photographs
+          or historical memories.
+        use_when:
+          - Distant historical flashbacks, aged photo mementos, or nostalgic memories
+        avoid_when:
+          - Vibrant modern full-color action
+        narrative_effects:
+          - Immediately signals past timeline, nostalgia, and antique memory
+        source_category: composition.visual_effect.effect.color_effect
+        post_count: 9311
+        effect_type: color_palette_toning
+        motion_dynamics: warm_monochrome
+        shutter_style: sepia_wash
+        compatible_with:
+          - flashback
+          - film grain
+          - black border
+          - heavy film grain
+        exclusive_with:
+          - bloom
+      - tag: chromatic aberration
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Optical lens color fringing splitting red/cyan or blue/yellow
+          channels at high-contrast edges.
+        use_when:
+          - Cyberpunk glitches, digital distress, psychic shock, or extreme wide lens
+            edges
+        avoid_when:
+          - Clean traditional historical watercolor manga
+        narrative_effects:
+          - Imparts optical imperfection, sci-fi distortion, or psychic instability
+        source_category: composition.visual_effect.effect.color_effect
+        post_count: 33852
+        effect_type: color_optical
+        motion_dynamics: edge_dispersion
+        shutter_style: prism_dispersion
+        compatible_with:
+          - fisheye
+          - dutch angle
+          - vignetting
+        exclusive_with:
+          - soft focus
+      - tag: film grain
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Organic photographic film texture speckles distributed across
+          the image.
+        use_when:
+          - Vintage retro aesthetic, gritty noir drama, horror suspense, or cinema
+            feel
+        avoid_when:
+          - Ultra-clean smooth digital anime cel style
+        narrative_effects:
+          - Adds tactile film texture, cinematic weight, and gritty analog atmosphere
+        source_category: composition.visual_effect.effect.color_effect
+        post_count: 22649
+        effect_type: analog_texture
+        motion_dynamics: stochastic_noise
+        shutter_style: analog_emulsion
+        compatible_with:
+          - sepia
+          - vignetting
+          - flashback
+          - black border
+        exclusive_with:
+          - scanlines
+      - tag: bloom
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Luminous glow bleeding from bright highlights over adjacent darker
+          areas.
+        use_when:
+          - Dreamlike sunshine, magical spellcasting, heavenly visions, or radiant
+            beauty
+        avoid_when:
+          - Harsh crisp silhouette noir scenes
+        narrative_effects:
+          - Infuses panels with ethereal radiance, divine majesty, and magical luminescence
+        source_category: composition.visual_effect.effect.glow_light
+        post_count: 4910
+        effect_type: luminescence
+        motion_dynamics: specular_bleeding
+        shutter_style: photographic_bloom
+        compatible_with:
+          - lens flare
+          - sparkle
+          - soft focus
+          - portrait
+        exclusive_with:
+          - night vision
+      - tag: vignetting
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Gradual darkening toward the corners and edges of the frame.
+        use_when:
+          - Claustrophobic mood, horror suspense, tunnel vision shock, or vintage
+            lens look
+        avoid_when:
+          - Bright evenly-lit comedy panels
+        narrative_effects:
+          - Focuses reader gaze tightly into center and builds psychological constriction
+        source_category: composition.visual_effect.effect.blur
+        post_count: 2260
+        effect_type: optical_falloff
+        motion_dynamics: corner_shadow
+        shutter_style: aperture_shading
+        compatible_with:
+          - film grain
+          - depth of field
+          - dutch angle
+          - fisheye
+        exclusive_with:
+          - borderless panels
+      - tag: haze
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Atmospheric mist, heat shimmer, or smoke softening background
+          contrast.
+        use_when:
+          - Scorching summer heat waves, foggy morning mystery, or post-battle smoke
+        avoid_when:
+          - Crisp indoor dialogue
+        narrative_effects:
+          - Adds tangible atmospheric temperature, mystery, and environmental depth
+        source_category: composition.visual_effect.effect.blur
+        post_count: 238
+        effect_type: atmospheric_optical
+        motion_dynamics: particulate_diffusion
+        shutter_style: atmospheric_haze
+        compatible_with:
+          - atmospheric perspective
+          - scenery
+          - landscape
+        exclusive_with:
+          - scanlines
+      - tag: double exposure
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Two distinct photographic exposures superimposed transparently
+          into a single image.
+        use_when:
+          - Character portrait blended with landscape memories, psychological duality,
+            or premonitions
+        avoid_when:
+          - Literal concrete reality storytelling
+        narrative_effects:
+          - Creates poetic metaphor, psychological superposition, and surreal artistic
+            resonance
+        source_category: composition.visual_effect.effect.general
+        post_count: 904
+        effect_type: superimposition
+        motion_dynamics: dual_exposure_blend
+        shutter_style: multi_exposure
+        compatible_with:
+          - portrait
+          - scenery
+          - flashback
+        exclusive_with:
+          - isometric
+      - tag: overexposure
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Extreme brightness blowing out highlight details to pure luminous
+          white.
+        use_when:
+          - Emerging from dark cave into blinding sun, flashbang grenades, or nuclear
+            explosion
+        avoid_when:
+          - Standard balanced daylight lighting
+        narrative_effects:
+          - Simulates optical blindness, overwhelming radiance, and disorienting shock
+        source_category: composition.visual_effect.effect.general
+        post_count: 582
+        effect_type: luminescence_extreme
+        motion_dynamics: whiteout
+        shutter_style: sensor_saturation
+        compatible_with:
+          - bloom
+          - lens flare
+          - facing viewer
+        exclusive_with:
+          - night vision
+      - tag: crosshair
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Sniper rifle or targeting reticle overlay centered on the target.
+        use_when:
+          - Sniper assassination suspense, missile lock-on, or tactical aiming
+        avoid_when:
+          - Unarmed peaceful scenes
+        narrative_effects:
+          - Creates extreme lethal peril, sniper suspense, and tactical target focus
+        source_category: composition.visual_effect.effect.general
+        post_count: 779
+        effect_type: overlay_interface
+        motion_dynamics: target_lock
+        shutter_style: reticle_overlay
+        compatible_with:
+          - viewfinder
+          - close-up
+          - weapon focus
+        exclusive_with:
+          - scenery
+      - tag: distortion
+        tier: specialized
+        reliability: medium
+        visual_priority: 5
+        description: Optical or digital warping bending geometric forms in the image.
+        use_when:
+          - Psychological hallucination, reality warping magic, or heat waves
+        avoid_when:
+          - Straightforward realistic documentation
+        narrative_effects:
+          - Signals mental breakdown, reality disruption, or surreal phenomena
+        source_category: composition.visual_effect.effect.general
+        post_count: 1405
+        effect_type: spatial_warp
+        motion_dynamics: nonlinear_bending
+        shutter_style: optical_distortion
+        compatible_with:
+          - fisheye
+          - chromatic aberration
+          - dutch angle
+        exclusive_with:
+          - isometric
+      - tag: refraction
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Light rays bending through glass, water, prisms, or crystals
+          causing offset images.
+        use_when:
+          - Looking through water glasses, swimming underwater, or crystal magic
+        avoid_when:
+          - Dry non-refractive air
+        narrative_effects:
+          - Adds optical elegance, liquid realism, and prismatic light beauty
+        source_category: composition.visual_effect.effect.general
+        post_count: 1081
+        effect_type: optical_artifact
+        motion_dynamics: ray_bending
+        shutter_style: specular_refraction
+        compatible_with:
+          - partially underwater shot
+          - depth of field
+        exclusive_with:
+          - scanlines
+      - tag: wet lens
+        tier: specialized
+        reliability: medium
+        visual_priority: 5
+        description: Water droplets or condensation clinging directly to the camera
+          lens surface.
+        use_when:
+          - Heavy rainstorms, emerging from pool, ocean splashes, or crying over camera
+        avoid_when:
+          - Dry indoor rooms
+        narrative_effects:
+          - Places the camera physically in the harsh weather or wet environment
+        source_category: composition.visual_effect.effect.general
+        post_count: 105
+        effect_type: lens_surface_artifact
+        motion_dynamics: droplet_adhesion
+        shutter_style: aqueous_lens_obstruction
+        compatible_with:
+          - from below
+          - partially underwater shot
+          - refraction
+        exclusive_with:
+          - scenery
+      - tag: diffraction spikes
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Sharp 4-point or 6-point star spikes radiating from intense point
+          light sources.
+        use_when:
+          - Dazzling jewelry, night stars, twinkling gems, or street lamps
+        avoid_when:
+          - Soft diffuse cloudy daylight
+        narrative_effects:
+          - Emphasizes dazzling brightness, luxury sparkle, and celestial wonder
+        source_category: composition.visual_effect.effect.glow_light
+        post_count: 5698
+        effect_type: optical_artifact
+        motion_dynamics: aperture_diffraction
+        shutter_style: stellar_spikes
+        compatible_with:
+          - glint
+          - sparkle
+          - bokeh
+          - lens flare
+        exclusive_with:
+          - night vision
+      - tag: heavy chromatic aberration
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Severe RGB channel separation producing dramatic red/cyan edge
+          displacement.
+        use_when:
+          - System error crashes, glitch art, cybernetic corruption, or intense visual
+            shock
+        avoid_when:
+          - Clean realistic styles
+        narrative_effects:
+          - Signals critical technological failure, extreme sensory overload, or digital
+            breach
+        source_category: composition.visual_effect.effect.color_effect
+        post_count: 369
+        effect_type: color_optical_extreme
+        motion_dynamics: channel_offset
+        shutter_style: heavy_rgb_split
+        compatible_with:
+          - chromatic aberration
+          - dutch angle
+          - distortion
+        exclusive_with:
+          - soft focus
+      - tag: heavy film grain
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Pronounced, gritty analog grain texture across the whole composition.
+        use_when:
+          - Grindhouse film look, dark psychological horror, or aged historical archival
+            photos
+        avoid_when:
+          - Glossy modern digital webtoons
+        narrative_effects:
+          - Creates visceral raw grit, archival authenticity, and ominous suspense
+        source_category: composition.visual_effect.effect.color_effect
+        post_count: 231
+        effect_type: analog_texture_heavy
+        motion_dynamics: heavy_noise
+        shutter_style: high_iso_grain
+        compatible_with:
+          - film grain
+          - sepia
+          - flashback
+        exclusive_with:
+          - bloom
+      - tag: flashback
+        tier: core
+        reliability: high
+        visual_priority: 5
+        description: Visual styling indicating a memory or past timeline sequence.
+        use_when:
+          - Revealing backstory, childhood memories, or previous narrative events
+        avoid_when:
+          - Present real-time linear storytelling
+        narrative_effects:
+          - Clearly demarcates historical retrospection and emotional memory
+        source_category: composition.visual_effect.effect.general
+        post_count: 1976
+        effect_type: narrative_temporal
+        motion_dynamics: temporal_shift
+        shutter_style: memory_wash
+        compatible_with:
+          - black border
+          - sepia
+          - film grain
+          - double exposure
+        exclusive_with:
+          - camera feed
+      - tag: time lapse
+        tier: specialized
+        reliability: medium
+        visual_priority: 5
+        description: Visualizing passage of time through shifting light streaks or
+          multi-phase clouds/shadows.
+        use_when:
+          - Waiting for hours, day-to-night transitions in one frame, or long journeys
+        avoid_when:
+          - Single instant split-second combat
+        narrative_effects:
+          - Compresses the passage of hours or seasons into a single evocative frame
+        source_category: composition.visual_effect.effect.general
+        post_count: 324
+        effect_type: temporal_compression
+        motion_dynamics: light_trails
+        shutter_style: long_exposure_timelapse
+        compatible_with:
+          - scenery
+          - landscape
+          - light trail
+        exclusive_with:
+          - close-up
+      - tag: night vision
+        tier: specialized
+        reliability: high
+        visual_priority: 5
+        description: Monochrome green phosphor or IR glow with scanlines representing
+          night-vision goggles.
+        use_when:
+          - Special forces night raids, covert infiltration, or nocturnal monster
+            hunts
+        avoid_when:
+          - Bright daylight scenes
+        narrative_effects:
+          - Creates tactical military immersion and tense dark-ops suspense
+        source_category: composition.visual_effect.effect.general
+        post_count: 113
+        effect_type: electro_optical_sensor
+        motion_dynamics: green_phosphor_ir
+        shutter_style: nvg_sensor
+        compatible_with:
+          - viewfinder
+          - vignetting
+          - eyewear view
+        exclusive_with:
+          - bloom
+          - lens flare
+          - sunburst
+  comic_layout:
+    scope: page
+    max_selected: 2
+    description: Comic page format, panel grid configuration, reading flow direction,
+      and cover formats.
+    tags:
+      - tag: comic
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: General comic / manga page format with panel divisions, speech
+          bubble rhythm, and sequential storytelling.
+        use_when:
+          - Generating multi-panel comic pages with panels and sequential action
+        avoid_when:
+          - Single standalone full-bleed illustration
+        narrative_effects:
+          - Establishes comic medium conventions and sequential reading flow
+        source_category: production.format.comic_format
+        post_count: 655754
+        page_structure: multi_panel_sequential
+        panel_count: variable_multi
+        reading_flow: comic_sequence
+        compatible_with:
+          - border
+          - white border
+          - black border
+          - 4koma
+        exclusive_with:
+          - tachi-e
+      - tag: 4koma
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Classic 4-panel vertical gag manga layout following Kishotenketsu
+          structure (Intro, Development, Twist, Punchline).
+        use_when:
+          - Four-panel comedic skits, episodic slice-of-life vignettes, or punchline-driven
+            stories
+        avoid_when:
+          - Sprawling non-linear multi-tier graphic novel spreads
+        narrative_effects:
+          - Delivers tight four-beat comedic or narrative timing
+        source_category: production.format.comic_format
+        post_count: 111268
+        page_structure: four_panel_column
+        panel_count: 4_panels
+        reading_flow: top_to_bottom
+        compatible_with:
+          - comic
+          - chibi inset
+          - border
+          - white border
+        exclusive_with:
+          - full page comic
+          - 2koma
+          - 3koma
+          - 5koma
+          - 6koma
+      - tag: 2koma
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Two-panel vertical or horizontal comic layout pairing setup and
+          immediate punchline/reaction.
+        use_when:
+          - Before-and-after punchlines, question-and-answer gags, or expectation-vs-reality
+            contrasts
+        avoid_when:
+          - Complex multi-stage long narratives
+        narrative_effects:
+          - Provides maximum punchline snappiness and immediate contrast
+        source_category: production.format.comic_format
+        post_count: 42063
+        page_structure: two_panel_stack
+        panel_count: 2_panels
+        reading_flow: setup_punchline
+        compatible_with:
+          - comic
+          - border
+          - side-by-side
+        exclusive_with:
+          - 4koma
+          - 3koma
+          - 5koma
+      - tag: silent comic
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Comic narrative completely devoid of speech bubbles and text
+          dialogue, driven purely by visual action.
+        use_when:
+          - Pure visual storytelling, pantomime humor, atmospheric journey, or wordless
+            emotional climaxes
+        avoid_when:
+          - Expository dialogue-heavy legal/detective conversations
+        narrative_effects:
+          - Elevates visual language, emotional nuance, and universal readability
+        source_category: production.format.comic_format
+        post_count: 24785
+        page_structure: textless_sequential
+        panel_count: variable
+        reading_flow: visual_pantomime
+        compatible_with:
+          - comic
+          - 4koma
+          - full page comic
+        exclusive_with:
+          - text focus
+      - tag: 3koma
+        tier: specialized
+        reliability: high
+        visual_priority: 6
+        description: Three-panel comic structure (Setup, Build-up, Punchline).
+        use_when:
+          - Three-beat jokes, short transformation sequences, or escalating gag trio
+        avoid_when:
+          - Four-beat traditional Kishotenketsu
+        narrative_effects:
+          - Fast-paced three-step narrative progression
+        source_category: production.format.comic_format
+        post_count: 23236
+        page_structure: three_panel_column
+        panel_count: 3_panels
+        reading_flow: top_to_bottom
+        compatible_with:
+          - comic
+          - border
+        exclusive_with:
+          - 4koma
+          - 2koma
+          - 5koma
+      - tag: multiple 4koma
+        tier: specialized
+        reliability: high
+        visual_priority: 6
+        description: Page layout featuring two parallel columns of 4koma strips side-by-side.
+        use_when:
+          - Standard manga magazine 4-koma publication page (2 strips per page)
+        avoid_when:
+          - Single strip publication
+        narrative_effects:
+          - Standard authentic 4-koma tankobon layout
+        source_category: production.format.comic_format
+        post_count: 6399
+        page_structure: dual_column_4koma
+        panel_count: 8_panels_dual_strip
+        reading_flow: right_column_then_left_column
+        compatible_with:
+          - comic
+          - 4koma
+        exclusive_with:
+          - full page comic
+      - tag: 1koma
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Single-shot cartoon gag or standalone satirical illustration.
+        use_when:
+          - Single-shot political cartoon, one-shot gag, or standalone comic punchline
+        avoid_when:
+          - Multi-panel sequential narrative
+        narrative_effects:
+          - Packs full humor or thematic punch into a single self-contained frame
+        source_category: production.format.comic_format
+        post_count: 5655
+        page_structure: single-shot-gag
+        panel_count: 1_panel
+        reading_flow: single_glance
+        compatible_with:
+          - comic
+          - border
+        exclusive_with:
+          - 4koma
+          - 2koma
+          - 3koma
+          - 5koma
+          - 6koma
+      - tag: segmented comic
+        tier: specialized
+        reliability: high
+        visual_priority: 6
+        description: Comic page broken into irregularly shaped dynamic panel shards
+          and slashes.
+        use_when:
+          - High-octane shonen action battles, shattering emotional moments, or complex
+            battle choreography
+        avoid_when:
+          - Orderly calm comedic 4koma
+        narrative_effects:
+          - Accelerates reading tempo and shatters panel rigidity with dynamic diagonal
+            energy
+        source_category: production.format.comic_format
+        post_count: 4538
+        page_structure: irregular_dynamic_panels
+        panel_count: variable_dynamic
+        reading_flow: dynamic_diagonal
+        compatible_with:
+          - comic
+          - dutch angle
+          - cut-in
+        exclusive_with:
+          - 4koma
+          - square 4koma
+      - tag: 5koma
+        tier: specialized
+        reliability: medium
+        visual_priority: 6
+        description: Five-panel comic layout adding an afterword/aftermath reaction
+          panel to the standard four-beat structure.
+        use_when:
+          - 4koma gag with an extra bonus aftermath reaction beat
+        avoid_when:
+          - Standard 4-panel strictly bounded formats
+        narrative_effects:
+          - Allows an extended punchline aftermath or double-twist
+        source_category: production.format.comic_format
+        post_count: 4533
+        page_structure: five_panel_extended
+        panel_count: 5_panels
+        reading_flow: top_to_bottom
+        compatible_with:
+          - comic
+          - 4koma
+        exclusive_with:
+          - 1koma
+          - 2koma
+          - 4koma
+      - tag: square 4koma
+        tier: specialized
+        reliability: high
+        visual_priority: 6
+        description: Four-panel layout arranged in a 2x2 square grid rather than a
+          single vertical strip.
+        use_when:
+          - Square format publications, social media carousels, or four-grid balance
+        avoid_when:
+          - Tall vertical mobile scrolling strips
+        narrative_effects:
+          - Provides balanced quadrant reading flow
+        source_category: production.format.comic_format
+        post_count: 3757
+        page_structure: two_by_two_grid
+        panel_count: 4_panels_grid
+        reading_flow: z_pattern_or_n_pattern
+        compatible_with:
+          - comic
+          - 4koma
+        exclusive_with:
+          - vertical comic
+      - tag: left-to-right manga
+        tier: specialized
+        reliability: high
+        visual_priority: 6
+        description: Western comic reading direction (left to right, top to bottom).
+        use_when:
+          - Western comic formats, manhwa/webtoons, or localized graphic novels
+        avoid_when:
+          - Traditional Japanese right-to-left manga
+        narrative_effects:
+          - Enforces Western reading order across panels and dialogue bubbles
+        source_category: production.format.comic_format
+        post_count: 2874
+        page_structure: western_reading_order
+        panel_count: variable
+        reading_flow: left_to_right
+        compatible_with:
+          - comic
+          - numbered panels
+        exclusive_with:
+          - right-to-left comic
+      - tag: manga cover
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Front cover illustration for a manga volume with title logo placement
+          space and dynamic hero art.
+        use_when:
+          - Volume cover art, promotional chapter title splash, or magazine cover
+            design
+        avoid_when:
+          - Internal narrative sequential panels
+        narrative_effects:
+          - Commands maximum shelf appeal, character charisma, and commercial impact
+        source_category: production.format.comic_format
+        post_count: 2542
+        page_structure: single_page_cover
+        panel_count: 1_cover
+        reading_flow: cover_focal_point
+        compatible_with:
+          - full body
+          - portrait
+          - bloom
+          - full composition
+        exclusive_with:
+          - 4koma
+          - 2koma
+          - segmented comic
+      - tag: comic cover
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Western style comic book cover illustration featuring dramatic
+          hero action and title framing.
+        use_when:
+          - Issue cover art, collector variant covers, or chapter cover pages
+        avoid_when:
+          - Internal dialogue sequences
+        narrative_effects:
+          - Creates explosive promotional hook and iconic hero presentation
+        source_category: production.format.comic_format
+        post_count: 1749
+        page_structure: single_page_cover
+        panel_count: 1_cover
+        reading_flow: cover_focal_point
+        compatible_with:
+          - foreshortening
+          - from below
+          - full body
+        exclusive_with:
+          - 4koma
+          - 2koma
+      - tag: borderless panels
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Panels rendered without black enclosing frame borders, floating
+          directly on the page background.
+        use_when:
+          - Poetic introspective sequences, dreamscapes, memory float, or modern airy
+            webtoon layouts
+        avoid_when:
+          - Strict traditional grid layouts
+        narrative_effects:
+          - Creates open, limitless, atmospheric flow without rigid boundaries
+        source_category: production.format.comic_format
+        post_count: 1650
+        page_structure: borderless_bleed
+        panel_count: variable
+        reading_flow: unconstrained_flow
+        compatible_with:
+          - comic
+          - soft focus
+          - flashback
+        exclusive_with:
+          - border
+          - white border
+          - black border
+      - tag: right-to-left comic
+        tier: specialized
+        reliability: high
+        visual_priority: 6
+        description: Traditional Japanese manga reading direction (right to left,
+          top to bottom).
+        use_when:
+          - Authentic Japanese manga page layouts and traditional tankobon reading
+            flow
+        avoid_when:
+          - Western left-to-right comics
+        narrative_effects:
+          - Enforces authentic Japanese manga eye-flow dynamics
+        source_category: production.format.comic_format
+        post_count: 1258
+        page_structure: traditional_manga_reading_order
+        panel_count: variable
+        reading_flow: right_to_left
+        compatible_with:
+          - comic
+          - 4koma
+          - white border
+        exclusive_with:
+          - left-to-right manga
+      - tag: full page comic
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Single illustration occupying the entire page area as a grand
+          narrative beat or splash.
+        use_when:
+          - Grand location reveal, emotional climax confession, or epic boss entrance
+        avoid_when:
+          - Rapid multi-panel back-and-forth dialogue
+        narrative_effects:
+          - Halts reading tempo for maximum dramatic weight and visual awe
+        source_category: production.format.comic_format
+        post_count: 805
+        page_structure: single_full_page_splash
+        panel_count: 1_splash_page
+        reading_flow: full_page_immersion
+        compatible_with:
+          - splash page
+          - full composition
+          - wide shot
+          - full body
+        exclusive_with:
+          - 4koma
+          - 2koma
+          - 3koma
+          - multiple 4koma
+      - tag: numbered panels
+        tier: specialized
+        reliability: high
+        visual_priority: 6
+        description: Panel borders clearly labeled with sequential numbers (1, 2,
+          3...) to guide reading order.
+        use_when:
+          - Instructional how-to comics, educational guides, or complex non-standard
+            panel flows
+        avoid_when:
+          - Immersive cinematic graphic novels
+        narrative_effects:
+          - Eliminates reading order ambiguity in complex or educational comic layouts
+        source_category: production.format.comic_format
+        post_count: 619
+        page_structure: numbered_sequential
+        panel_count: variable_numbered
+        reading_flow: explicit_numerical_order
+        compatible_with:
+          - comic
+          - 4koma
+          - left-to-right manga
+        exclusive_with:
+          - borderless panels
+      - tag: vertical comic
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Vertical scrolling comic format optimized for mobile webtoons
+          with generous vertical gutters.
+        use_when:
+          - Webtoons, smartphone scroll comics, and continuous vertical pacing
+        avoid_when:
+          - Two-page landscape book spreads
+        narrative_effects:
+          - Optimizes pacing for downward scroll and mobile reading momentum
+        source_category: production.format.comic_format
+        post_count: 509
+        page_structure: vertical_scroll_strip
+        panel_count: variable_vertical
+        reading_flow: continuous_vertical_scroll
+        compatible_with:
+          - comic
+          - column lineup
+        exclusive_with:
+          - panorama
+          - square 4koma
+      - tag: 6koma
+        tier: specialized
+        reliability: medium
+        visual_priority: 6
+        description: Six-panel comic strip layout providing room for expanded setup
+          and twin punchlines.
+        use_when:
+          - Extended comedic skits requiring deeper character interaction before the
+            punchline
+        avoid_when:
+          - Simple two-beat jokes
+        narrative_effects:
+          - Accommodates richer narrative development within a strip format
+        source_category: production.format.comic_format
+        post_count: 471
+        page_structure: six_panel_column
+        panel_count: 6_panels
+        reading_flow: top_to_bottom
+        compatible_with:
+          - comic
+          - border
+        exclusive_with:
+          - 1koma
+          - 2koma
+          - 4koma
+      - tag: panel gag
+        tier: specialized
+        reliability: medium
+        visual_priority: 6
+        description: Comic structure focused specifically on visual sight gags and
+          slapstick punchlines.
+        use_when:
+          - Slapstick humor, sudden funny visual transformations, or comedic punchlines
+        avoid_when:
+          - Serious tragic narrative climaxes
+        narrative_effects:
+          - Maximizes comedic timing and sight-gag payoff
+        source_category: production.format.comic_format
+        post_count: 265
+        page_structure: gag_sequential
+        panel_count: variable_gag
+        reading_flow: slapstick_timing
+        compatible_with:
+          - comic
+          - 4koma
+          - chibi inset
+        exclusive_with:
+          - scenery
+      - tag: splash page
+        tier: core
+        reliability: high
+        visual_priority: 6
+        description: Large, dramatic full-page illustration designed to capture immediate
+          attention and highlight major narrative events.
+        use_when:
+          - Chapter opening spreads, dramatic character entrances, or grand climaxes
+        avoid_when:
+          - Casual low-stakes conversation
+        narrative_effects:
+          - Maximizes visual grandeur, emotional impact, and artistic spectacle
+        source_category: production.format.general
+        post_count: 1323
+        page_structure: full_splash
+        panel_count: 1_splash
+        reading_flow: central_impact
+        compatible_with:
+          - full page comic
+          - full composition
+          - wide shot
+          - full body
+        exclusive_with:
+          - 4koma
+          - 2koma
+          - 3koma
